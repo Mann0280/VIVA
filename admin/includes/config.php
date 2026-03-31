@@ -1,6 +1,6 @@
 <?php
 /**
- * VIVA Admin Configuration
+ * VIVA Admin Configuration (Production Ready)
  */
 
 // Define absolute path to admin folder
@@ -13,38 +13,46 @@ if (!defined('ROOT_PATH')) {
     define('ROOT_PATH', realpath(ADMIN_PATH . '/../'));
 }
 
-// Define Base URL for Admin (relative to project root)
-// Assuming the project is at http://localhost/VIVA/
-if (!defined('ADMIN_URL')) {
-    define('ADMIN_URL', '/VIVA/admin');
+// ✅ Auto-detect Base URL (works on localhost + live)
+if (!defined('BASE_URL')) {
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+    $host = $_SERVER['HTTP_HOST'];
+    define('BASE_URL', $protocol . $host);
 }
 
-// Include the centralized routes
-require_once __DIR__ . '/routes.php';
+// ✅ Admin URL (auto)
+if (!defined('ADMIN_URL')) {
+    define('ADMIN_URL', BASE_URL . '/admin');
+}
 
-// Include the main product data
-require_once ROOT_PATH . '/data/products-data.php';
-
-// Include the site settings data
-require_once ROOT_PATH . '/data/site-settings.php';
-
-// Include the database connection
+// Include database connection
 require_once __DIR__ . '/db.php';
 
 // Include core helper functions
 require_once __DIR__ . '/functions.php';
+
+// OPTIONAL: include static fallback data (if needed)
+$products_file = ROOT_PATH . '/data/products-data.php';
+$settings_file = ROOT_PATH . '/data/site-settings.php';
+
+if (file_exists($products_file)) {
+    require_once $products_file;
+}
+
+if (file_exists($settings_file)) {
+    require_once $settings_file;
+}
 
 // Session management
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Simple Auth Check (Optional - can be expanded later)
+// Admin authentication check
 function check_admin_login() {
     if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
         header('Location: ' . ADMIN_URL . '/login.php');
         exit();
     }
 }
-
 ?>
