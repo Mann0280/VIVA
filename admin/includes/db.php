@@ -4,9 +4,9 @@
  */
 
 $host = 'localhost';
-$db   = 'YOUR_DB_NAME';     // 👉 change this
-$user = 'YOUR_DB_USER';     // 👉 change this
-$pass = 'YOUR_DB_PASSWORD'; // 👉 change this
+$db   = 'viva_db';
+$user = 'root';
+$pass = ''; 
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";

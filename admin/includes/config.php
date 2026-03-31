@@ -17,13 +17,18 @@ if (!defined('ROOT_PATH')) {
 if (!defined('BASE_URL')) {
     $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
     $host = $_SERVER['HTTP_HOST'];
-    define('BASE_URL', $protocol . $host);
+    // Handle VIVA subdirectory for local development
+    $is_local = ($host === 'localhost');
+    define('BASE_URL', $protocol . $host . ($is_local ? '/VIVA' : ''));
 }
 
 // ✅ Admin URL (auto)
 if (!defined('ADMIN_URL')) {
     define('ADMIN_URL', BASE_URL . '/admin');
 }
+
+// ✅ Centralized routes (REMAINING FROM PREVIOUS STEP)
+require_once __DIR__ . '/routes.php';
 
 // Include database connection
 require_once __DIR__ . '/db.php';
