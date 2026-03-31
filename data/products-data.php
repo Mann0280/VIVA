@@ -269,7 +269,7 @@ $product_categories = [
     ],
 
     'adhesive-tape' => [
-        'name' => 'Adhesive Tape Processing machines',
+        'name' => '6. Adhesive Tape Processing machines',
         'image' => 'assets/images/products/adhesive-tape-processing-machines/bopp-tape-slitting---rewinding-machine/300-mm-bopp-tape-cutting-machi-e/main-1.png',
         'description' => 'Our complete range covers everything from BOPP to Masking and PVC tapes with high performance and automated turret mechanisms.',
         'features' => [
@@ -299,7 +299,7 @@ $product_categories = [
         ],
         'sub_categories' => [
             'bopp-tape-slitting' => [
-                'name' => 'BOPP Tape Slitting & Rewinding Machine',
+                'name' => 'a. BOPP Tape Slitting & Rewinding Machine',
                 'image' => 'assets/images/products/adhesive-tape-processing-machines/bopp-tape-slitting---rewinding-machine/1350-mm-bopp-tape-cutting-machine/img-1945.png',
                 'description' => 'Complete manufacturing lines for BOPP packaging tapes.',
                 'variants' => [
@@ -323,55 +323,58 @@ $product_categories = [
                     ]
                 ]
             ],
-            'masking-tape' => [
-                'name' => 'Masking Tape Rewinding machine',
-                'image' => 'assets/images/products/adhesive-tape-processing-machines/bopp-tape-slitting---rewinding-machine/300-mm-bopp-tape-cutting-machi-e/main-1.png',
-                'description' => 'Rewinder engineered exclusively for masking tapes.',
-                'variants' => []
-            ],
             'slicer-cutting' => [
-                'name' => 'Slicer Cutting Machine',
+                'name' => 'c. Slicer Cutting Machine',
                 'image' => 'assets/images/products/slicer-cutting-machine/pvc-tape-cutting-machine/manual-pvc-tape-cutting-machine/main-1.png',
                 'description' => 'Precision log roll slicing systems across different configurations.',
-                'variants' => [
-                    'masking-slicer' => [
+                'sub_categories' => [
+                    'masking-slicer-cat' => [
                         'name' => 'Masking tape Slicer Cutting Machine',
                         'image' => 'assets/images/products/slicer-cutting-machine/pvc-tape-cutting-machine/manual-pvc-tape-cutting-machine/main-1.png',
-                        'price' => 'Enquire Now',
-                        'featured' => false
+                        'description' => 'Specialized slicer for masking tapes.',
+                        'variants' => [
+                            'manual-slicer' => [
+                                'name' => 'Manual Model Slicer Cutting machine',
+                                'image' => 'assets/images/products/slicer-cutting-machine/pvc-tape-cutting-machine/manual-pvc-tape-cutting-machine/main-1.png',
+                                'price' => 'Enquire Now',
+                                'featured' => false
+                            ],
+                            'semiauto-slicer' => [
+                                'name' => 'Semiauto Model Slicer Cutting Machine',
+                                'image' => 'assets/images/products/slicer-cutting-machine/pvc-tape-cutting-machine/manual-pvc-tape-cutting-machine/main-1.png',
+                                'price' => 'Enquire Now',
+                                'featured' => true
+                            ]
+                        ]
                     ],
-                    'manual-slicer' => [
-                        'name' => 'Manual Model Slicer Cutting machine',
-                        'image' => 'assets/images/products/slicer-cutting-machine/pvc-tape-cutting-machine/manual-pvc-tape-cutting-machine/main-1.png',
-                        'price' => 'Enquire Now',
-                        'featured' => false
-                    ],
-                    'semiauto-slicer' => [
-                        'name' => 'Semiauto Model Slicer Cutting Machine',
-                        'image' => 'assets/images/products/slicer-cutting-machine/pvc-tape-cutting-machine/manual-pvc-tape-cutting-machine/main-1.png',
-                        'price' => 'Enquire Now',
-                        'featured' => true
+                    'pvc-tape-cutting' => [
+                        'name' => 'PVC Tape Cutting Machine',
+                        'image' => 'assets/images/products/adhesive-tape-processing-machines/bopp-tape-slitting---rewinding-machine/300-mm-bopp-tape-cutting-machi-e/main-1.png',
+                        'description' => 'Double shaft systems for efficient electrical PVC tape cutting.',
+                        'variants' => [
+                            'manual-pvc' => [
+                                'name' => 'Manual PVC Tape Cutting Machine',
+                                'image' => 'assets/images/products/adhesive-tape-processing-machines/bopp-tape-slitting---rewinding-machine/300-mm-bopp-tape-cutting-machi-e/main-1.png',
+                                'price' => 'Enquire Now',
+                                'featured' => false
+                            ],
+                            'auto-double-pvc' => [
+                                'name' => 'Fully Auto Double Shaft PVC Tape Cutting machine',
+                                'image' => 'assets/images/products/adhesive-tape-processing-machines/bopp-tape-slitting---rewinding-machine/300-mm-bopp-tape-cutting-machi-e/main-1.png',
+                                'price' => 'Enquire Now',
+                                'featured' => true
+                            ]
+                        ]
                     ]
                 ]
-            ],
-            'pvc-tape-cutting' => [
-                'name' => 'PVC Tape Cutting Machine',
+            ]
+        ],
+        'variants' => [
+            'masking-tape-prod' => [
+                'name' => 'b. Masking Tape Rewinding machine',
                 'image' => 'assets/images/products/adhesive-tape-processing-machines/bopp-tape-slitting---rewinding-machine/300-mm-bopp-tape-cutting-machi-e/main-1.png',
-                'description' => 'Double shaft systems for efficient electrical PVC tape cutting.',
-                'variants' => [
-                    'manual-pvc' => [
-                        'name' => 'Manual PVC Tape Cutting Machine',
-                        'image' => 'assets/images/products/adhesive-tape-processing-machines/bopp-tape-slitting---rewinding-machine/300-mm-bopp-tape-cutting-machi-e/main-1.png',
-                        'price' => 'Enquire Now',
-                        'featured' => false
-                    ],
-                    'auto-double-pvc' => [
-                        'name' => 'Fully Auto Double Shaft PVC Tape Cutting machine',
-                        'image' => 'assets/images/products/adhesive-tape-processing-machines/bopp-tape-slitting---rewinding-machine/300-mm-bopp-tape-cutting-machi-e/main-1.png',
-                        'price' => 'Enquire Now',
-                        'featured' => true
-                    ]
-                ]
+                'price' => 'Enquire Now',
+                'featured' => false
             ]
         ]
     ],

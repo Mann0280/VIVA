@@ -1,0 +1,165 @@
+=== CATEGORIES ===
+
+--- Category ID:9 ---
+  id: 9
+  name: c. Slicer Cutting Machine
+  slug: slicer-cutting-machine
+  status: active
+  parent_id: 6
+  description: PVC Tape Cutting Machines engineered for clean, precise cutting of PVC electrical tapes and insulation tapes. Available in manual single-shaft and fully automatic double-shaft configurations. Features include hardened steel blades, adjustable cutting width, and anti-vibration mounts for consistent cut quality at high production speeds.
+  image: assets/images/categories/masking-tape.png
+  created_at: 2026-03-27 17:45:52
+  featured: 1
+  seo_title: PVC Tape Cutting Machine | VIVA Engineering
+  seo_description: PVC Tape Cutting Machines - manual to fully auto double shaft. Hardened blades, precision cutting for electrical tapes. Manufacturer India.
+  meta_keywords: PVC tape cutting machine, electrical tape cutter, PVC insulation tape, double shaft cutter, VIVA Engineering
+
+--- Category ID:13 ---
+  id: 13
+  name: Masking tape Slicer Cutting Machine
+  slug: masking-tape-slicer-cutting-machine
+  status: active
+  parent_id: 9
+  description: (empty)
+  image: (empty)
+  created_at: 2026-03-31 14:13:32
+  featured: 1
+  seo_title: (empty)
+  seo_description: (empty)
+  meta_keywords: (empty)
+
+--- Category ID:14 ---
+  id: 14
+  name: PVC Tape Cutting Machine
+  slug: pvc-tape-cutting-machine
+  status: active
+  parent_id: 9
+  description: (empty)
+  image: (empty)
+  created_at: 2026-03-31 15:09:12
+  featured: (empty)
+  seo_title: (empty)
+  seo_description: (empty)
+  meta_keywords: (empty)
+
+
+=== PRODUCTS ===
+
+--- Product ID:21 ---
+  id: 21
+  category_id: 14
+  name: Manual PVC Tape Cutting Machine
+  tagline: Single Shaft Cutting for PVC Insulation Tapes
+  slug: manual-pvc-tape-cutting-machine
+  tag: (empty)
+  short_description: (empty)
+  description: PVC electrical insulation tapes require a very specific cutting dynamic to prevent the vinyl backing...
+  features: High-torque spindle optimized for dense PVC/Vinyl
+Lever-operated manual plunge mechanism
+Adjustable ...
+  applications: PVC electrical insulation tapes
+Vinyl hazard warning tapes
+Pipe wrapping tapes
+Wire harnessing tapes...
+  benefits: Produces perfectly flat, non-telescoped PVC rolls
+Extremely durable construction for decades of use
+...
+  specifications: {"Material":"PVC \/ Vinyl Tapes","Log OD":"Max 150mm","Log Length":"Max 1300mm","Slicing Width":"Adj...
+  featured_image: assets/images/categories/masking-tape.png
+  gallery_images: (empty)
+  seo_title: Manual PVC Tape Cutting Machine | VIVA
+  seo_description: Manual PVC Tape Cutting Machine for electrical insulation tapes. Hardened steel blades, precision sl...
+  status: active
+  availability: In Stock
+  lead_time: 4-6 Weeks
+  price: (empty)
+  featured: (empty)
+  meta_title: (empty)
+  meta_description: (empty)
+  meta_keywords: PVC tape cutting machine, electrical tape slicer, manual insulation tape cutter, PVC tape machine, V...
+  created_at: 2026-03-27 17:45:52
+
+--- Product ID:22 ---
+  id: 22
+  category_id: 14
+  name: Fully Auto Double Shaft PVC Tape Cutting machine
+  tagline: High-Volume Double Shaft Automated PVC Cutting
+  slug: fully-auto-double-shaft-pvc-tape-cutting-machine
+  tag: (empty)
+  short_description: (empty)
+  description: To meet massive market demand for electrical insulation tapes, the Fully Auto Double Shaft PVC Tape ...
+  features: Dual-shaft configuration slices two logs simultaneously
+Siemens/Delta PLC with full Touch Screen HMI...
+  applications: High-volume PVC electrical insulation tapes
+Automotive wire harness tapes
+Underground pipe wrapping ...
+  benefits: Doubles output capacity versus single-shaft machines
+Zero operator input required during the slicing...
+  specifications: {"Machine Type":"Dual Shaft Automatic Lathe","Log OD":"Max 150mm x 2 Logs","Log Length":"Max 1350mm"...
+  featured_image: assets/images/categories/masking-tape.png
+  gallery_images: (empty)
+  seo_title: Fully Auto Double Shaft PVC Tape Cutting Machine | VIVA
+  seo_description: Fully Auto Double Shaft PVC Tape Cutting Machine. Servo driven, dual log cutting for massive electri...
+  status: active
+  availability: In Stock
+  lead_time: 4-6 Weeks
+  price: (empty)
+  featured: (empty)
+  meta_title: (empty)
+  meta_description: (empty)
+  meta_keywords: double shaft PVC tape cutting, automatic PVC slitter, electrical tape manufacturing machine, PVC tap...
+  created_at: 2026-03-27 17:45:52
+
+--- Product ID:34 ---
+  id: 34
+  category_id: 13
+  name: Manual Model Slicer Cutting machine
+  tagline: (empty)
+  slug: manual-model-slicer-cutting-machine
+  tag: (empty)
+  short_description: (empty)
+  description: (empty)
+  features: (empty)
+  applications: (empty)
+  benefits: (empty)
+  specifications: (empty)
+  featured_image: (empty)
+  gallery_images: (empty)
+  seo_title: (empty)
+  seo_description: (empty)
+  status: active
+  availability: In Stock
+  lead_time: 4-6 Weeks
+  price: (empty)
+  featured: (empty)
+  meta_title: (empty)
+  meta_description: (empty)
+  meta_keywords: (empty)
+  created_at: 2026-03-31 15:09:12
+
+--- Product ID:35 ---
+  id: 35
+  category_id: 13
+  name: Semiauto Model Slicer Cutting Machine
+  tagline: (empty)
+  slug: semiauto-model-slicer-cutting-machine
+  tag: (empty)
+  short_description: (empty)
+  description: (empty)
+  features: (empty)
+  applications: (empty)
+  benefits: (empty)
+  specifications: (empty)
+  featured_image: (empty)
+  gallery_images: (empty)
+  seo_title: (empty)
+  seo_description: (empty)
+  status: active
+  availability: In Stock
+  lead_time: 4-6 Weeks
+  price: (empty)
+  featured: (empty)
+  meta_title: (empty)
+  meta_description: (empty)
+  meta_keywords: (empty)
+  created_at: 2026-03-31 15:09:12

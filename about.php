@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/splitting@1.0.6/dist/splitting.css">
 
 <!-- Hero Section -->
-<section class="relative min-h-[60vh] flex items-center bg-black overflow-hidden">
+<section class="relative min-h-[60vh] flex items-center bg-black overflow-hidden pt-24">
     <div class="absolute inset-0 parallax" data-speed="0.3">
         <img src="assets/images/categories/slitting-rewinding.jpg" 
              alt="VIVA Engineering Machinery"

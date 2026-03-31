@@ -2,7 +2,7 @@
 include 'includes/header.php'; 
 
 // Fetch Settings
-$hero_bg = str_replace('/VIVA/', '', get_setting('hero_bg_path', 'assets/images/hero-main.jpg'));
+$hero_bg = 'https://www.ssab.com/-/media/images/technical-support/how-to-weld/how-to-weld-menu-2-1920x570px-240815v1.gif?m=20240815105849';
 $about_img = str_replace('/VIVA/', '', get_setting('about_image_path', 'assets/images/about-viva.jpg'));
 $services_bg = str_replace('/VIVA/', '', get_setting('services_bg_path', 'assets/images/services-bg.jpg'));
 ?>
@@ -17,7 +17,7 @@ $services_bg = str_replace('/VIVA/', '', get_setting('services_bg_path', 'assets
         <div class="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-transparent"></div>
     </div>
     
-    <div class="container mx-auto px-4 lg:px-8 relative z-10 py-6">
+    <div class="container mx-auto px-4 lg:px-8 relative z-10 pt-32 pb-6">
         <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
             <div class="lg:w-3/5">
                 <div class="max-w-3xl">
@@ -47,14 +47,14 @@ $services_bg = str_replace('/VIVA/', '', get_setting('services_bg_path', 'assets
                     
                     <!-- CTA Buttons -->
                     <div class="hero-cta flex flex-col sm:flex-row gap-3 mb-6 opacity-0 transform translate-y-10">
-                        <a href="products.php" class="group relative px-6 py-3 bg-orange-600 text-white font-bold uppercase tracking-wider overflow-hidden transition-all duration-300 hover:bg-orange-700 hover:shadow-xl hover:shadow-orange-600/50 hover:-translate-y-1 text-center text-sm">
+                        <a href="products.php" class="group relative px-6 py-3 bg-orange-600 text-white font-bold uppercase tracking-wider overflow-hidden transition-all duration-300 hover:bg-orange-700 hover:shadow-xl hover:shadow-orange-600/50 hover:-translate-y-1 text-center text-sm rounded border border-orange-600">
                             <span class="relative z-10 flex items-center justify-center sm:justify-start">
                                 Explore Products 
                                 <i class="fas fa-arrow-right ml-3 transform group-hover:translate-x-2 transition-transform duration-300"></i>
                             </span>
                             <div class="absolute inset-0 bg-gradient-to-r from-orange-700 to-orange-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
                         </a>
-                        <a href="contact.php" class="group px-6 py-3 border-2 border-white text-white font-bold uppercase tracking-wider hover:bg-white hover:text-black transition-all duration-300 hover:-translate-y-1 hover:shadow-xl text-center text-sm">
+                        <a href="contact.php" class="group px-6 py-3 border border-white/50 text-white font-bold uppercase tracking-wider hover:bg-white hover:text-black transition-all duration-300 hover:-translate-y-1 hover:shadow-xl text-center text-sm rounded">
                             <span class="flex items-center justify-center sm:justify-start">
                                 Get a Quote 
                                 <i class="fas fa-arrow-right ml-3 transform group-hover:translate-x-2 transition-transform duration-300"></i>
@@ -65,57 +65,73 @@ $services_bg = str_replace('/VIVA/', '', get_setting('services_bg_path', 'assets
             </div>
             
             <!-- Right Side - Compact Stats Counter -->
-            <div class="lg:w-2/5 mt-0 lg:mt-0">
-                <div class="stats-vertical bg-black/40 backdrop-blur-sm border border-gray-800/50 rounded-xl p-5 lg:p-6 opacity-0 transform translate-x-10">
-                    <div class="grid grid-cols-2 gap-x-6 gap-y-5">
+            <div class="lg:w-2/5 mt-0 lg:mt-0 w-full flex lg:justify-end">
+                <div class="stats-vertical bg-black/40 backdrop-blur-md border border-gray-800/80 rounded-xl p-8 opacity-0 transform translate-x-10 w-full max-w-sm shadow-2xl">
+                    <div class="grid grid-cols-1 gap-y-8">
                         <!-- Stat 1 -->
-                        <div class="stat-item">
-                            <div class="flex items-baseline gap-1">
-                                <div class="stat-number text-3xl lg:text-4xl font-bold text-orange-600" data-value="50">0</div>
-                                <span class="text-orange-600 text-xl font-bold">+</span>
+                        <div class="stat-item flex items-center justify-between border-b border-gray-800/50 pb-6">
+                            <div class="flex flex-col">
+                                <div class="flex items-baseline gap-1">
+                                    <div class="stat-number text-4xl font-black text-orange-600" data-value="50">0</div>
+                                    <span class="text-orange-600 text-2xl font-bold">+</span>
+                                </div>
+                                <div class="flex items-center gap-1.5 mt-1">
+                                    <p class="text-gray-300 text-xs font-bold uppercase tracking-widest leading-none mt-1">Machines Delivered</p>
+                                </div>
                             </div>
-                            <div class="flex items-center gap-1.5 mt-1">
-                                <div class="w-1.5 h-1.5 bg-orange-600 rounded-full animate-pulse"></div>
-                                <p class="text-gray-300 text-xs uppercase tracking-wider">Machines Delivered</p>
+                            <div class="w-12 h-12 rounded-full bg-orange-600/10 flex items-center justify-center">
+                                <i class="fas fa-cogs text-orange-600 text-xl"></i>
                             </div>
                         </div>
                         
                         <!-- Stat 2 -->
-                        <div class="stat-item">
-                            <div class="flex items-baseline gap-1">
-                                <div class="stat-number text-3xl lg:text-4xl font-bold text-orange-600" data-value="16">0</div>
-                                <span class="text-orange-600 text-xl font-bold">+</span>
+                        <div class="stat-item flex items-center justify-between border-b border-gray-800/50 pb-6">
+                            <div class="flex flex-col">
+                                <div class="flex items-baseline gap-1">
+                                    <div class="stat-number text-4xl font-black text-white" data-value="16">0</div>
+                                    <span class="text-white text-2xl font-bold">+</span>
+                                </div>
+                                <div class="flex items-center gap-1.5 mt-1">
+                                    <p class="text-gray-400 text-xs font-bold uppercase tracking-widest leading-none mt-1">Years Experience</p>
+                                </div>
                             </div>
-                            <div class="flex items-center gap-1.5 mt-1">
-                                <div class="w-1.5 h-1.5 bg-orange-600 rounded-full animate-pulse" style="animation-delay: 0.3s"></div>
-                                <p class="text-gray-300 text-xs uppercase tracking-wider">Years Experience</p>
+                            <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center">
+                                <i class="fas fa-calendar-alt text-white text-xl"></i>
                             </div>
                         </div>
                         
                         <!-- Stat 3 -->
-                        <div class="stat-item">
-                            <div class="flex items-baseline gap-1">
-                                <div class="stat-number text-3xl lg:text-4xl font-bold text-orange-600" data-value="100">0</div>
-                                <span class="text-orange-600 text-xl font-bold">%</span>
+                        <div class="stat-item flex items-center justify-between border-b border-gray-800/50 pb-6">
+                            <div class="flex flex-col">
+                                <div class="flex items-baseline gap-1">
+                                    <div class="stat-number text-4xl font-black text-orange-600" data-value="100">0</div>
+                                    <span class="text-orange-600 text-2xl font-bold">%</span>
+                                </div>
+                                <div class="flex items-center gap-1.5 mt-1">
+                                    <p class="text-gray-300 text-xs font-bold uppercase tracking-widest leading-none mt-1">Quality Assured</p>
+                                </div>
                             </div>
-                            <div class="flex items-center gap-1.5 mt-1">
-                                <div class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" style="animation-delay: 0.6s"></div>
-                                <p class="text-gray-300 text-xs uppercase tracking-wider">Quality Assured</p>
+                            <div class="w-12 h-12 rounded-full bg-orange-600/10 flex items-center justify-center">
+                                <i class="fas fa-check-circle text-orange-600 text-xl"></i>
                             </div>
                         </div>
                         
                         <!-- Stat 4 -->
-                        <div class="stat-item">
-                            <div class="flex items-baseline gap-1">
-                                <div class="flex items-baseline">
-                                    <div class="stat-number text-3xl lg:text-4xl font-bold text-orange-600" data-value="24">0</div>
-                                    <span class="text-orange-600 text-xl font-bold mx-0.5">/</span>
-                                    <div class="stat-number text-3xl lg:text-4xl font-bold text-orange-600" data-value="7">0</div>
+                        <div class="stat-item flex items-center justify-between">
+                            <div class="flex flex-col">
+                                <div class="flex items-baseline gap-1">
+                                    <div class="flex items-baseline">
+                                        <div class="stat-number text-4xl font-black text-white" data-value="24">0</div>
+                                        <span class="text-white text-2xl font-bold mx-0.5">/</span>
+                                        <div class="stat-number text-4xl font-black text-white" data-value="7">0</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-1.5 mt-1">
+                                    <p class="text-gray-400 text-xs font-bold uppercase tracking-widest leading-none mt-1">Support Available</p>
                                 </div>
                             </div>
-                            <div class="flex items-center gap-1.5 mt-1">
-                                <div class="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse" style="animation-delay: 0.9s"></div>
-                                <p class="text-gray-300 text-xs uppercase tracking-wider">Support Available</p>
+                            <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center">
+                                <i class="fas fa-headset text-white text-xl"></i>
                             </div>
                         </div>
                     </div>
@@ -339,7 +355,7 @@ $services_bg = str_replace('/VIVA/', '', get_setting('services_bg_path', 'assets
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <?php
-            $feat_cats = $pdo->query("SELECT * FROM categories WHERE featured = 1 AND status = 'active' LIMIT 4")->fetchAll();
+            $feat_cats = $pdo->query("SELECT * FROM categories WHERE status = 'active' ORDER BY featured DESC, id ASC LIMIT 4")->fetchAll();
             foreach ($feat_cats as $fc):
             ?>
             <a href="products.php?category=<?php echo h($fc['slug']); ?>" class="group relative h-80 rounded-2xl overflow-hidden border border-gray-800 hover:border-orange-600/50 transition-all duration-700 opacity-0 transform translate-y-10 animate-on-scroll">
@@ -357,121 +373,6 @@ $services_bg = str_replace('/VIVA/', '', get_setting('services_bg_path', 'assets
     </div>
 </section>
 
-<!-- Products Section -->
-<section class="py-20 bg-black">
-    <div class="container mx-auto px-4 lg:px-8">
-        <div class="products-header text-center mb-16 opacity-0 transform translate-y-10">
-            <div class="inline-block mb-6">
-                <span class="text-orange-600 text-sm font-bold uppercase tracking-widest border-l-4 border-orange-600 pl-4 hover:pl-6 transition-all duration-300">Product Range</span>
-            </div>
-            
-            <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
-                INDUSTRIAL MACHINERY
-                <span class="block text-gray-400">PRODUCT CATALOG</span>
-            </h2>
-            
-            <p class="text-gray-400 text-lg max-w-3xl mx-auto leading-relaxed">
-                Explore our premium range of precision-engineered industrial machinery designed for maximum efficiency and reliability.
-            </p>
-        </div>
-        
-        <!-- Products Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <?php
-            $stmt = $pdo->query("SELECT p.*, c.name as category_name FROM products p JOIN categories c ON p.category_id = c.id WHERE p.featured = 1 AND p.status = 'active' LIMIT 6");
-            $products_list = $stmt->fetchAll();
-            
-            foreach ($products_list as $index => $product):
-                $product_features = parseField($product['features']);
-                // Use a default badge if not set? Or just orange.
-                $badge_class = ($index % 2 == 0) ? 'bg-orange-600' : 'bg-black';
-            ?>
-            <div class="product-card group relative overflow-hidden bg-gray-900 border border-gray-800 hover:border-orange-600 transition-all duration-700 cursor-pointer opacity-0 transform translate-y-10" 
-                 data-delay="<?php echo ($index % 3) * 150; ?>">
-                
-                <!-- Image with Overlay -->
-                <div class="relative h-72 overflow-hidden">
-                    <img src="<?php echo h(str_replace('/VIVA/', '', $product['image'])); ?>" 
-                         alt="<?php echo h($product['name']); ?>"
-                         class="w-full h-full object-cover transform group-hover:scale-125 group-hover:rotate-2 transition-all duration-1000">
-                    
-                    <!-- Gradient Overlay -->
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent group-hover:from-orange-900/50 transition-colors duration-700"></div>
-                    
-                    <!-- Category Badge -->
-                    <div class="absolute top-4 left-4 z-10 transform group-hover:scale-110 transition-transform duration-300">
-                        <span class="<?php echo $badge_class; ?> text-white px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider shadow-lg">
-                            <?php echo h($product['category_name']); ?>
-                        </span>
-                    </div>
-                    
-                    <!-- Quick View Overlay -->
-                    <div class="absolute inset-0 bg-gradient-to-b from-black/90 via-orange-900/90 to-black/90 opacity-0 group-hover:opacity-100 transition-all duration-700 flex items-center justify-center">
-                        <div class="text-center transform translate-y-8 group-hover:translate-y-0 transition-all duration-700 delay-100">
-                            <div class="w-16 h-16 bg-orange-600 rounded-full flex items-center justify-center mx-auto mb-4 transform group-hover:rotate-180 transition-transform duration-700 shadow-2xl shadow-orange-600/50">
-                                <i class="fas fa-search-plus text-2xl text-white"></i>
-                            </div>
-                            <p class="text-white font-bold text-lg mb-2">View Details</p>
-                            <p class="text-orange-400 text-sm">Click to explore</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Animated scan line -->
-                    <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
-                        <div class="scan-line absolute inset-x-0 h-24 bg-gradient-to-b from-transparent via-orange-500/30 to-transparent"></div>
-                    </div>
-                </div>
-                
-                <!-- Content -->
-                <div class="p-8 bg-gray-900 group-hover:bg-black transition-colors duration-500 relative z-10">
-                    <h3 class="text-xl font-bold text-white mb-4 uppercase group-hover:text-orange-400 transition-colors duration-300 transform group-hover:translate-x-2 transition-transform duration-300">
-                        <?php echo $product['name']; ?>
-                    </h3>
-                    
-                    <div class="space-y-3 mb-6">
-                        <?php foreach (array_slice($product_features, 0, 3) as $idx => $feature): ?>
-                        <div class="flex items-center text-gray-400 group-hover:text-gray-300 transition-all duration-300 transform translate-x-0 group-hover:translate-x-2" style="transition-delay: <?php echo $idx * 100; ?>ms">
-                            <div class="w-2 h-2 bg-orange-600 rounded-full mr-3 group-hover:scale-150 transition-transform duration-300"></div>
-                            <span class="text-sm"><?php echo h($feature); ?></span>
-                        </div>
-                        <?php endforeach; ?>
-                    </div>
-                    
-                    <div class="flex items-center justify-between">
-                        <a href="product-detail.php?product=<?php echo h($product['slug']); ?>" 
-                           class="group/btn inline-flex items-center text-orange-600 font-bold uppercase text-sm hover:text-orange-500 transition-colors duration-300">
-                            View Details 
-                            <i class="fas fa-arrow-right ml-2 transform group-hover/btn:translate-x-3 transition-transform duration-300"></i>
-                        </a>
-                        
-                        <span class="text-white text-sm font-bold px-3 py-1.5 bg-gray-800 rounded-full transform group-hover:scale-110 group-hover:bg-orange-600 transition-all duration-300">
-                            <i class="fas fa-tag mr-1"></i> <?php echo h($product['tag'] ?: 'Premium'); ?>
-                        </span>
-                    </div>
-                </div>
-                
-                <!-- Hover Border Effect -->
-                <div class="absolute inset-0 border-2 border-transparent group-hover:border-orange-600 transition-all duration-700 rounded-lg pointer-events-none"></div>
-                
-                <!-- Glow effect -->
-                <div class="absolute -inset-2 bg-gradient-to-r from-orange-600 to-orange-800 opacity-0 group-hover:opacity-30 blur-2xl transition-opacity duration-700"></div>
-            </div>
-            <?php endforeach; ?>
-        </div>
-        
-        <!-- View All Button -->
-        <div class="products-cta text-center mt-16 opacity-0 transform translate-y-10">
-            <a href="products.php" class="group relative inline-flex items-center px-10 py-5 bg-gradient-to-r from-orange-600 to-orange-700 text-white font-bold uppercase tracking-wider text-lg rounded-xl overflow-hidden hover:shadow-2xl hover:shadow-orange-600/50 transition-all duration-500 hover:-translate-y-2">
-                <span class="relative z-10 flex items-center">
-                    View All Products 
-                    <i class="fas fa-arrow-right ml-4 transform group-hover:translate-x-4 transition-transform duration-500"></i>
-                </span>
-                <div class="absolute inset-0 bg-gradient-to-r from-orange-700 to-orange-800 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left"></div>
-                <div class="absolute -inset-1 bg-gradient-to-r from-orange-600 to-orange-500 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity duration-700"></div>
-            </a>
-        </div>
-    </div>
-</section>
 
 <!-- Pricing Section -->
 <section class="py-20 bg-gray-900">
@@ -565,7 +466,7 @@ $services_bg = str_replace('/VIVA/', '', get_setting('services_bg_path', 'assets
                 <div class="space-y-4 mb-10 relative z-10">
                     <?php foreach ($plan['features'] as $idx => $feature): ?>
                     <div class="flex items-start opacity-0 feature-list-item" style="animation-delay: <?php echo $idx * 100; ?>ms">
-                        <div class="flex-shrink-0 w-6 h-6 <?php echo $plan['popular'] ? 'bg-orange-600' : 'bg-gray-800'; ?> group-hover:bg-orange-600 rounded-full flex items-center justify-center mr-3 mt-0.5 transform group-hover:scale-125 group-hover:rotate-180 transition-all duration-500">
+                        <div class="flex-shrink-0 w-6 h-6 <?php echo $plan['popular'] ? 'bg-orange-600' : 'bg-gray-800'; ?> group-hover:bg-orange-600 rounded-full flex items-center justify-center mr-3 mt-0.5 transform group-hover:scale-125 transition-all duration-500">
                             <i class="fas fa-check text-xs text-white"></i>
                         </div>
                         <span class="text-gray-300 group-hover:text-white transition-colors duration-300"><?php echo $feature; ?></span>
@@ -653,7 +554,7 @@ $services_bg = str_replace('/VIVA/', '', get_setting('services_bg_path', 'assets
                 
                 <!-- Client Info -->
                 <div class="flex items-center pt-6 border-t border-gray-800 group-hover:border-orange-600 transition-colors duration-500 relative z-10">
-                    <div class="w-14 h-14 bg-gradient-to-br from-orange-600 to-orange-700 rounded-full flex items-center justify-center mr-4 transform group-hover:scale-110 group-hover:rotate-180 transition-all duration-700 shadow-lg shadow-orange-600/50">
+                    <div class="w-14 h-14 bg-gradient-to-br from-orange-600 to-orange-700 rounded-full flex items-center justify-center mr-4 transform group-hover:scale-110 transition-all duration-700 shadow-lg shadow-orange-600/50">
                         <i class="fas fa-user text-xl text-white"></i>
                     </div>
                     <div>

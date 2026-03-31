@@ -24,19 +24,24 @@ if ($cat_slug) {
         $meta_keywords = $category['meta_keywords'] ?? '';
         $page_heading = $category['name'];
         
-        // Check if this category has subcategories
+        // Fetch subcategories
         $stmt = $pdo->prepare("SELECT * FROM categories WHERE parent_id = ? AND status = 'active' ORDER BY name ASC");
         $stmt->execute([$category['id']]);
         $subcategories = $stmt->fetchAll();
 
-        if ($subcategories) {
-            $level = 1; 
-            $items = $subcategories;
-        } else {
-            $level = 2; 
-            $stmt = $pdo->prepare("SELECT * FROM products WHERE category_id = ? AND status = 'active' ORDER BY name ASC");
-            $stmt->execute([$category['id']]);
-            $items = $stmt->fetchAll();
+        // Fetch direct products
+        $stmt = $pdo->prepare("SELECT * FROM products WHERE category_id = ? AND status = 'active' ORDER BY name ASC");
+        $stmt->execute([$category['id']]);
+        $direct_products = $stmt->fetchAll();
+
+        if (!empty($subcategories) || !empty($direct_products)) {
+            $level = !empty($subcategories) ? 1 : 2; 
+            // If both exist, we prioritize the grid view but could show both.
+            // For now, let's combine them into $items but mark them
+            foreach($subcategories as &$sc) { $sc['is_category'] = true; }
+            foreach($direct_products as &$dp) { $dp['is_category'] = false; }
+            
+            $items = array_merge($subcategories, $direct_products);
         }
     }
 } else {
@@ -49,7 +54,7 @@ include 'includes/header.php';
 ?>
 
 <style>
-    /* Products Page - Clean, Proper Layout */
+    /* Products Page Styles */
     .products-hero {
         padding-top: 100px;
         padding-bottom: 40px;
@@ -84,112 +89,6 @@ include 'includes/header.php';
     .products-breadcrumb a:hover { color: #FF5722; }
     .products-breadcrumb .separator { color: #374151; }
     .products-breadcrumb .current { color: #FF5722; font-weight: 600; }
-
-    /* Product Card - Compact & Clean */
-    .product-card {
-        position: relative;
-        border-radius: 12px;
-        overflow: hidden;
-        background: #111;
-        border: 1px solid rgba(255,255,255,0.06);
-        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        cursor: pointer;
-    }
-    .product-card:hover {
-        transform: translateY(-6px);
-        border-color: rgba(255,87,34,0.4);
-        box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 20px rgba(255,87,34,0.08);
-    }
-
-    .product-card .card-img-wrap {
-        position: relative;
-        width: 100%;
-        padding-top: 75%; /* 4:3 aspect ratio */
-        overflow: hidden;
-    }
-    .product-card .card-img-wrap img {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1), filter 0.5s;
-        filter: brightness(0.85);
-    }
-    .product-card:hover .card-img-wrap img {
-        transform: scale(1.1);
-        filter: brightness(0.6);
-    }
-    .product-card .card-img-wrap::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.1) 60%, transparent 100%);
-        pointer-events: none;
-    }
-
-    /* Badge on image */
-    .product-card .card-badge {
-        position: absolute;
-        top: 12px;
-        left: 12px;
-        z-index: 5;
-        padding: 4px 10px;
-        background: #FF5722;
-        color: white;
-        font-size: 10px;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        border-radius: 4px;
-    }
-
-    /* Card body */
-    .product-card .card-body {
-        padding: 16px 18px 18px;
-    }
-    .product-card .card-title {
-        font-size: 15px;
-        font-weight: 700;
-        color: white;
-        margin-bottom: 6px;
-        line-height: 1.3;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        transition: color 0.3s;
-    }
-    .product-card:hover .card-title { color: #FF5722; }
-
-    .product-card .card-desc {
-        font-size: 12px;
-        color: #6b7280;
-        line-height: 1.5;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        margin-bottom: 12px;
-    }
-
-    .product-card .card-action {
-        display: flex;
-        align-items: center;
-        font-size: 12px;
-        font-weight: 700;
-        color: #FF5722;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        transition: all 0.3s;
-    }
-    .product-card .card-action i {
-        margin-left: 6px;
-        transition: transform 0.3s;
-    }
-    .product-card:hover .card-action i {
-        transform: translateX(4px);
-    }
 
     /* Results count */
     .results-bar {
@@ -278,31 +177,87 @@ include 'includes/header.php';
             <?php endif; ?>
         </div>
 
-        <!-- Grid -->
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 md:gap-5">
+        <!-- Elegant Grid Layout -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
             <?php
             $index = 0;
             foreach ($items as $item):
-                $is_cat = ($level == 1);
+                $is_cat = isset($item['is_category']) ? $item['is_category'] : ($level == 1);
                 $link = $is_cat ? "products.php?category=" . h($item['slug']) : "product-detail.php?product=" . h($item['slug']);
                 $badge = $is_cat ? 'Category' : 'Machine';
-                $image = !empty($item['image']) ? h($item['image']) : 'v.jpeg';
-                $desc = !empty($item['description']) ? h($item['description']) : ($is_cat ? 'Explore our range of industrial solutions.' : 'Precision-engineered industrial machinery.');
+                
+                // Unified image support for both categories and newly migrated products schema
+                $image_source = !empty($item['featured_image']) ? $item['featured_image'] : (!empty($item['image']) ? $item['image'] : 'v.jpeg');
+                $image = h($image_source);
+                
+                if (strpos($image, '/VIVA/') === 0) {
+                    $image = substr($image, 6); // remove leading /VIVA/ if present
+                }
+
+                $child_items = [];
+                if ($is_cat) {
+                    $child_stmt = $pdo->prepare("SELECT name FROM categories WHERE parent_id = ? AND status = 'active' ORDER BY name ASC");
+                    $child_stmt->execute([$item['id']]);
+                    $child_items = $child_stmt->fetchAll();
+                    
+                    if (empty($child_items)) {
+                        $child_stmt = $pdo->prepare("SELECT name FROM products WHERE category_id = ? AND status = 'active' ORDER BY name ASC");
+                        $child_stmt->execute([$item['id']]);
+                        $child_items = $child_stmt->fetchAll();
+                    }
+                }
             ?>
-            <a href="<?php echo $link; ?>" class="product-card" data-aos="fade-up" data-aos-delay="<?php echo ($index % 6) * 50; ?>">
-                <div class="card-img-wrap">
-                    <img src="<?php echo $image; ?>" alt="<?php echo h($item['name']); ?>" loading="lazy">
-                    <span class="card-badge"><?php echo $badge; ?></span>
+            
+            <a href="<?php echo $link; ?>" class="group block relative h-[450px] rounded-2xl overflow-hidden border border-gray-800 bg-gray-950 shadow-xl transition-all duration-500 hover:-translate-y-2 hover:border-orange-600/50 hover:shadow-[0_20px_40px_rgba(0,0,0,0.8),0_0_20px_rgba(249,115,22,0.15)]" data-aos="fade-up" data-aos-delay="<?php echo ($index % 4) * 100; ?>">
+                <!-- Background Image (Object Contain to stop cropping machinery) -->
+                <div class="absolute inset-0 top-0 left-0 w-full h-[60%] flex items-center justify-center p-6 bg-gradient-to-b from-gray-900 to-black">
+                    <img src="<?php echo $image; ?>" alt="<?php echo h($item['name']); ?>" loading="lazy" class="max-w-full max-h-full object-contain opacity-80 transition-all duration-700 group-hover:scale-110 group-hover:opacity-100 drop-shadow-2xl">
                 </div>
-                <div class="card-body">
-                    <h3 class="card-title"><?php echo h($item['name']); ?></h3>
-                    <p class="card-desc"><?php echo $desc; ?></p>
-                    <div class="card-action">
-                        <?php echo $is_cat ? 'Explore' : 'View Details'; ?>
-                        <i class="fas fa-arrow-right"></i>
+                
+                <!-- Deep Hover Gradient for card bottom -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-black/95 to-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                <div class="absolute inset-0 p-8 flex flex-col justify-end text-left z-10 transition-all duration-500 group-hover:justify-start group-hover:pt-10">
+                    
+                    <!-- Title -->
+                    <h3 class="text-xl md:text-2xl font-bold text-white leading-tight mb-0 transform transition-all duration-500 group-hover:text-orange-500 group-hover:scale-95 origin-left">
+                        <?php echo h($item['name']); ?>
+                        <!-- Decorative line that appears on hover -->
+                        <div class="h-1 w-0 bg-orange-600 absolute -bottom-3 left-0 transition-all duration-500 group-hover:w-16"></div>
+                    </h3>
+
+                    <!-- Hidden hover content that slides up -->
+                    <div class="overflow-hidden max-h-0 opacity-0 group-hover:max-h-[300px] group-hover:opacity-100 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] flex flex-col pt-8 h-full">
+                        <div class="flex-1 overflow-y-auto pr-2 custom-scrollbar">
+                            <?php if ($is_cat && !empty($child_items)): ?>
+                                <ul class="space-y-3 mb-6">
+                                    <?php foreach ($child_items as $index_child => $child): ?>
+                                        <li class="flex items-start text-gray-300 text-sm transform opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500" style="transition-delay: <?php echo 100 + ($index_child * 30); ?>ms;">
+                                            <span class="text-orange-600 mr-3 mt-1 text-[8px]"><i class="fas fa-circle"></i></span>
+                                            <span class="leading-snug hover:text-white transition-colors font-medium"> <?php echo h($child['name']); ?> </span>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            <?php else: ?>
+                                <p class="text-gray-400 text-sm mb-6 leading-relaxed line-clamp-3">
+                                    <?php echo !empty($item['description']) ? h($item['description']) : 'Explore precision-engineered industrial solutions tailored to your manufacturing requirements.'; ?>
+                                </p>
+                            <?php endif; ?>
+                            
+                            <!-- Call to Action -->
+                            <span class="inline-flex items-center text-orange-600 font-bold uppercase tracking-widest text-[11px] hover:text-orange-400 transition-colors opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 duration-500 delay-300">
+                                <?php echo $is_cat ? 'View Group' : 'View Details'; ?>
+                                <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-2 transition-transform"></i>
+                            </span>
+                        </div>
                     </div>
                 </div>
+                
+                <!-- Corner accent frame -->
+                <div class="absolute top-4 right-4 w-12 h-12 border-t border-r border-white/10 group-hover:border-orange-600/30 transition-colors duration-500"></div>
             </a>
+
             <?php 
             $index++;
             endforeach; 
@@ -314,7 +269,7 @@ include 'includes/header.php';
             <i class="fas fa-box-open text-5xl text-gray-700 mb-4"></i>
             <h3 class="text-xl font-bold text-white mb-2">No Products Found</h3>
             <p class="text-gray-400 text-sm mb-6">We couldn't find any products in this category.</p>
-            <a href="products.php" class="btn-premium">View All Categories</a>
+            <a href="products.php" class="px-8 py-3 bg-orange-600 text-white font-bold rounded-lg hover:bg-orange-700 transition">View All Categories</a>
         </div>
         <?php endif; ?>
     </div>

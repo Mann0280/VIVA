@@ -1,0 +1,44 @@
+=== ALL CATEGORIES ===
+ID:1 | Parent:NULL | Status:active | Slug:slitting-rewinding-applications | Name:Slitting Rewinding Applications
+ID:2 | Parent:NULL | Status:active | Slug:center-shaft-slitting-rewinding-machines | Name:Center Shaft Slitting Rewinding Machines
+ID:3 | Parent:NULL | Status:active | Slug:roll-to-roll-processing-machines | Name:Roll to Roll Processing Machines
+ID:4 | Parent:NULL | Status:active | Slug:aluminium-foil-processing-machines | Name:Aluminium Foil Processing Machines
+ID:5 | Parent:NULL | Status:active | Slug:printing-converting-processing-machines | Name:Printing Converting & Processing Machines
+ID:6 | Parent:NULL | Status:active | Slug:adhesive-tape-processing-machines | Name:Adhesive Tape Processing machines
+ID:7 | Parent:6 | Status:active | Slug:bopp-tape-slitting-rewinding-machine | Name:BOPP Tape Slitting &amp; Rewinding Machine
+ID:9 | Parent:6 | Status:active | Slug:pvc-tape-cutting-machine | Name:Slicer Cutting Machine
+ID:10 | Parent:9 | Status:active | Slug:coating-processing-machines | Name:PVC Tape Cutting Machine
+ID:11 | Parent:NULL | Status:active | Slug:plastic-film-embossing-machine | Name:Plastic Film Embossing machine
+ID:12 | Parent:NULL | Status:active | Slug:extra-converting-machine-equipment | Name:Extra Converting machine & Equipment
+ID:13 | Parent:9 | Status:active | Slug:masking-tape-slicer-cutting-machine | Name:Masking tape Slicer Cutting Machine
+
+=== ALL PRODUCTS ===
+ID:1 | CatID:1 | Status:active | Slug:paper-slitting-rewinding-machine | Name:Paper slitting Rewinding machine
+ID:2 | CatID:1 | Status:active | Slug:plastic-slitting-rewinding-machine | Name:Plastic Slitting Rewinding machine
+ID:3 | CatID:1 | Status:active | Slug:non-woven-slitting-rewinding-machine | Name:Non-woven Slitting Rewinding machine
+ID:4 | CatID:2 | Status:active | Slug:paper-center-shaft-slitting-rewinding-machine | Name:Paper Center Shaft Slitting Rewinding machine
+ID:5 | CatID:2 | Status:active | Slug:plastic-center-shaft-slitting-rewinding-machine | Name:Plastic Center Shaft Slitting Rewinding machine
+ID:6 | CatID:3 | Status:active | Slug:winding-rewinding-machine | Name:Winding Rewinding machine
+ID:7 | CatID:3 | Status:active | Slug:doctroring-rewinding-machine-for-batch-coding | Name:Doctroring Rewinding machine for batch Coding
+ID:8 | CatID:3 | Status:active | Slug:paper-rewinding-machine | Name:Paper Rewinding machine
+ID:9 | CatID:3 | Status:active | Slug:hm-paper-rewinding-machine-notebook-paper-rewinding-machine | Name:HM Paper Rewinding machine / Notebook Paper Rewinding machine
+ID:10 | CatID:4 | Status:active | Slug:aluminium-foil-rewinding-machine | Name:Aluminium Foil Rewinding machine
+ID:11 | CatID:4 | Status:active | Slug:aluminium-jumbo-roll-slitting-machine | Name:Aluminium Jumbo Roll Slitting Machine
+ID:12 | CatID:5 | Status:active | Slug:rotogravure-printing-machine | Name:Rotogravure Printing Machine
+ID:13 | CatID:5 | Status:active | Slug:flexographic-printing-machine | Name:Flexographic Printing machine
+ID:14 | CatID:7 | Status:active | Slug:300-mm-baby-type-slitting-rewinding-machine | Name:300 MM Baby Type Slitting Rewinding machine
+ID:15 | CatID:7 | Status:active | Slug:1350-mm-turret-type-slitting-rewinding-machine | Name:1350 MM turret type Slitting Rewinding Machine
+ID:16 | CatID:7 | Status:active | Slug:core-cutting-machine-for-bopp-tapes | Name:Core Cutting Machine for BOPP Tapes
+ID:17 | CatID:6 | Status:active | Slug:masking-tape-rewinding-machine | Name:Masking Tape Rewinding machine
+ID:21 | CatID:9 | Status:active | Slug:manual-pvc-tape-cutting-machine | Name:Manual PVC Tape Cutting Machine
+ID:22 | CatID:9 | Status:active | Slug:fully-auto-double-shaft-pvc-tape-cutting-machine | Name:Fully Auto Double Shaft PVC Tape Cutting machine
+ID:23 | CatID:10 | Status:active | Slug:bopp-tape-coating-machine | Name:BOPP Tape Coating Machine
+ID:24 | CatID:10 | Status:active | Slug:water-base-coating-machine | Name:Water Base Coating machine
+ID:25 | CatID:10 | Status:active | Slug:paper-coating-machine | Name:Paper coating machine
+ID:26 | CatID:10 | Status:active | Slug:foam-tape-coating-machine | Name:Foam tape coating machine
+ID:27 | CatID:11 | Status:active | Slug:plastic-film-embossing-machine | Name:Plastic Film Embossing machine
+ID:28 | CatID:12 | Status:active | Slug:web-guide-system | Name:Web Guide system
+ID:29 | CatID:12 | Status:active | Slug:air-shafts | Name:Air Shafts
+ID:30 | CatID:12 | Status:active | Slug:safety-chucks | Name:Safety Chucks
+ID:31 | CatID:12 | Status:active | Slug:wrapping-machine | Name:wrapping Machine
+ID:32 | CatID:12 | Status:active | Slug:core-cutting-machine | Name:Core Cutting Machine

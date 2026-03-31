@@ -1,0 +1,7 @@
+Cat 9: name=c. Slicer Cutting Machine | slug=slicer-cutting-machine | parent=6 | status=active
+Cat 13: name=Masking tape Slicer Cutting Machine | slug=masking-tape-slicer-cutting-machine | parent=9 | status=active
+Cat 14: name=PVC Tape Cutting Machine | slug=pvc-tape-cutting-machine | parent=9 | status=active
+
+Children of Cat 9:
+  Cat 13: name=Masking tape Slicer Cutting Machine | slug=masking-tape-slicer-cutting-machine | parent=9 | status=active
+  Cat 14: name=PVC Tape Cutting Machine | slug=pvc-tape-cutting-machine | parent=9 | status=active

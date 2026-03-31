@@ -34,10 +34,10 @@ $recent_messages = $recent_messages_stmt->fetchAll();
             <p class="text-gray-400 mt-1">Here is what's happening with VIVA Engineering today.</p>
         </div>
         <div class="flex items-center space-x-3">
-            <a href="export_pdf.php" target="_blank" class="px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg text-sm transition-colors border border-gray-700 inline-flex items-center">
+            <a href="<?php echo route('export.pdf'); ?>" target="_blank" class="px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg text-sm transition-colors border border-gray-700 inline-flex items-center">
                 <i class="fas fa-download mr-2"></i> Export Report
             </a>
-            <a href="products/index.php?action=add" class="px-4 py-2 bg-orange-600/10 hover:bg-orange-600 border border-orange-600/30 rounded-lg text-sm font-semibold text-orange-500 hover:text-white transition-all inline-flex items-center shadow-sm active:scale-95">
+            <a href="<?php echo route('products.add'); ?>" class="px-4 py-2 bg-orange-600/10 hover:bg-orange-600 border border-orange-600/30 rounded-lg text-sm font-semibold text-orange-500 hover:text-white transition-all inline-flex items-center shadow-sm active:scale-95">
                 <i class="fas fa-plus mr-2"></i> Add Product
             </a>
         </div>
@@ -105,7 +105,7 @@ $recent_messages = $recent_messages_stmt->fetchAll();
         <div class="lg:col-span-2 space-y-4">
             <div class="flex items-center justify-between">
                 <h3 class="text-lg font-heading font-bold text-white">Recent Machinery</h3>
-                <a href="products/" class="text-orange-600 text-sm hover:underline">View All</a>
+                <a href="<?php echo route('products'); ?>" class="text-orange-600 text-sm hover:underline">View All</a>
             </div>
             <div class="card overflow-hidden border border-gray-800/50 bg-gray-900/20 backdrop-blur-sm">
                 <table class="w-full text-left border-collapse">
@@ -135,7 +135,7 @@ $recent_messages = $recent_messages_stmt->fetchAll();
                                 <span class="inline-block px-2 py-1 bg-green-500/10 text-green-500 text-[10px] font-bold rounded">LIVE</span>
                             </td>
                             <td class="px-6 py-4 text-right">
-                                <a href="products/index.php?edit=<?php echo $cat['id'] ?? ''; ?>" class="text-gray-500 hover:text-orange-600 transition-colors"><i class="fas fa-edit text-xs"></i></a>
+                                <a href="<?php echo route('products.edit', ['id' => $cat['id'] ?? '']); ?>" class="text-gray-500 hover:text-orange-600 transition-colors"><i class="fas fa-edit text-xs"></i></a>
                             </td>
                         </tr>
                         <?php endforeach; ?>
@@ -146,7 +146,7 @@ $recent_messages = $recent_messages_stmt->fetchAll();
             <!-- Recent Inquiries Section -->
             <div class="flex items-center justify-between pt-4">
                 <h3 class="text-lg font-heading font-bold text-white">Latest Inquiries</h3>
-                <a href="messages.php" class="text-orange-600 text-sm hover:underline">View Messages</a>
+                <a href="<?php echo route('messages'); ?>" class="text-orange-600 text-sm hover:underline">View Messages</a>
             </div>
             <div class="card overflow-hidden border border-orange-600/20 bg-orange-600/5 backdrop-blur-sm">
                 <table class="w-full text-left border-collapse">
@@ -168,7 +168,7 @@ $recent_messages = $recent_messages_stmt->fetchAll();
                                     </span>
                                 </td>
                                 <td class="px-6 py-4 text-right">
-                                    <a href="messages.php" class="text-gray-500 hover:text-orange-600 transition-colors"><i class="fas fa-external-link-alt text-xs"></i></a>
+                                    <a href="<?php echo route('messages'); ?>" class="text-gray-500 hover:text-orange-600 transition-colors"><i class="fas fa-external-link-alt text-xs"></i></a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>

@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($username === 'admin' && $password === 'viva123') {
         $_SESSION['admin_logged_in'] = true;
         $_SESSION['admin_name'] = 'Admin';
-        header('Location: dashboard.php');
+        header('Location: ' . route('dashboard'));
         exit();
     } else {
         $error = 'Invalid username or password.';
@@ -118,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
 
         <div class="text-center mt-8">
-            <a href="../" class="text-gray-500 text-sm hover:text-white transition-colors">
+            <a href="<?php echo route('site.home'); ?>" class="text-gray-500 text-sm hover:text-white transition-colors">
                 <i class="fas fa-arrow-left mr-2"></i> Back to Main Site
             </a>
         </div>

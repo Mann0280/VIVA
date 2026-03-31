@@ -308,7 +308,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save_settings'])) {
                         <div class="flex items-center space-x-4">
                             <input type="hidden" name="hero_bg_path" id="hero_bg_path_input" value="<?php echo get_setting('hero_bg_path'); ?>">
                             <div class="w-24 h-12 bg-white/10 border border-gray-800 rounded-md overflow-hidden flex items-center justify-center cursor-pointer" onclick="openSettingsMediaPicker('hero')">
-                                <img src="<?php echo get_setting('hero_bg_path'); ?>" id="hero_preview" alt="Hero Background" class="w-full h-full object-cover">
+                                <img src="<?php echo get_setting('hero_bg_path') ?: '/VIVA/v.jpeg'; ?>" id="hero_preview" alt="Hero Background" class="w-full h-full object-cover">
                             </div>
                             <button type="button" onclick="openSettingsMediaPicker('hero')" class="bg-gray-800 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-lg transition-all">
                                 Change Hero
@@ -329,7 +329,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save_settings'])) {
                         <div class="flex items-center space-x-4">
                             <input type="hidden" name="about_image_path" id="about_image_path_input" value="<?php echo get_setting('about_image_path'); ?>">
                             <div class="w-24 h-12 bg-white/10 border border-gray-800 rounded-md overflow-hidden flex items-center justify-center cursor-pointer" onclick="openSettingsMediaPicker('about')">
-                                <img src="<?php echo get_setting('about_image_path'); ?>" id="about_preview" alt="About Image" class="w-full h-full object-cover">
+                                <img src="<?php echo get_setting('about_image_path') ?: '/VIVA/v.jpeg'; ?>" id="about_preview" alt="About Image" class="w-full h-full object-cover">
                             </div>
                             <button type="button" onclick="openSettingsMediaPicker('about')" class="bg-gray-800 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-lg transition-all">
                                 Select Image
@@ -350,7 +350,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save_settings'])) {
                         <div class="flex items-center space-x-4">
                             <input type="hidden" name="services_bg_path" id="services_bg_path_input" value="<?php echo get_setting('services_bg_path'); ?>">
                             <div class="w-24 h-12 bg-white/10 border border-gray-800 rounded-md overflow-hidden flex items-center justify-center cursor-pointer" onclick="openSettingsMediaPicker('services')">
-                                <img src="<?php echo get_setting('services_bg_path'); ?>" id="services_preview" alt="Services Background" class="w-full h-full object-cover">
+                                <img src="<?php echo get_setting('services_bg_path') ?: '/VIVA/v.jpeg'; ?>" id="services_preview" alt="Services Background" class="w-full h-full object-cover">
                             </div>
                             <button type="button" onclick="openSettingsMediaPicker('services')" class="bg-gray-800 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-lg transition-all">
                                 Select Background
@@ -360,13 +360,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save_settings'])) {
 
                     <script>
                     function openSettingsMediaPicker(type) {
-                        MediaManager.open({ multiple: false }, function(item) {
-                            const path = (item.file_path.startsWith('/') ? '' : '/') + item.file_path;
-                            // Prepend /VIVA/ if logic expects absolute web root? 
-                            // Looking at settings.php: it uses /VIVA/ in some places.
-                            // Let's stick to the relative path from root.
+                        if (typeof window.openMediaManager !== 'function') {
+                            alert('Media Manager is not loaded correctly.');
+                            return;
+                        }
+                        
+                        window.openMediaManager({ multiple: false }, function(items) {
+                            // The callback returns an array of selected items
+                            if (!items || items.length === 0) return;
                             
-                            const finalPath = '/VIVA/' + item.file_path;
+                            const item = items[0];
+                            // The modal returns { id, path, alt }
+                            const finalPath = '/VIVA/' + item.path.replace(/^\/+/, '');
 
                             if (type === 'logo') {
                                 document.getElementById('logo_path_input').value = finalPath;

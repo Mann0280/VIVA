@@ -1,0 +1,47 @@
+=== CATEGORIES (AFTER FIX) ===
+ID:1 | Parent:NULL | [active] 1. Slitting Rewinding Applications (slug: slitting-rewinding-applications)
+ID:2 | Parent:NULL | [active] 2. Center Shaft Slitting Rewinding Machines (slug: center-shaft-slitting-rewinding-machines)
+ID:3 | Parent:NULL | [active] 3. Roll to Roll Processing Machines (slug: roll-to-roll-processing-machines)
+ID:4 | Parent:NULL | [active] 4. Aluminium Foil Processing Machines (slug: aluminium-foil-processing-machines)
+ID:5 | Parent:NULL | [active] 5. Printing Converting & Processing Machines (slug: printing-converting-processing-machines)
+ID:6 | Parent:NULL | [active] 6. Adhesive Tape Processing machines (slug: adhesive-tape-processing-machines)
+  ID:7 | Parent:6 | [active] a. BOPP Tape Slitting & Rewinding Machine (slug: bopp-tape-slitting-rewinding-machine)
+  ID:9 | Parent:6 | [active] c. Slicer Cutting Machine (slug: slicer-cutting-machine)
+ID:10 | Parent:NULL | [active] 7. Coating Processing machines (slug: coating-processing-machines)
+ID:11 | Parent:NULL | [active] 8. Plastic Film Embossing machine (slug: plastic-film-embossing-machine)
+ID:12 | Parent:NULL | [active] 9. Extra Converting machine & Equipment (slug: extra-converting-machine-equipment)
+    ID:13 | Parent:9 | [active] Masking tape Slicer Cutting Machine (slug: masking-tape-slicer-cutting-machine)
+    ID:14 | Parent:9 | [active] PVC Tape Cutting Machine (slug: pvc-tape-cutting-machine)
+
+=== PRODUCTS (AFTER FIX) ===
+  ID:1 | Cat:1 (1. Slitting Rewinding Applications) | [active] Paper slitting Rewinding machine
+  ID:2 | Cat:1 (1. Slitting Rewinding Applications) | [active] Plastic Slitting Rewinding machine
+  ID:3 | Cat:1 (1. Slitting Rewinding Applications) | [active] Non-woven Slitting Rewinding machine
+  ID:4 | Cat:2 (2. Center Shaft Slitting Rewinding Machines) | [active] Paper Center Shaft Slitting Rewinding machine
+  ID:5 | Cat:2 (2. Center Shaft Slitting Rewinding Machines) | [active] Plastic Center Shaft Slitting Rewinding machine
+  ID:6 | Cat:3 (3. Roll to Roll Processing Machines) | [active] Winding Rewinding machine
+  ID:7 | Cat:3 (3. Roll to Roll Processing Machines) | [active] Doctroring Rewinding machine for batch Coding
+  ID:8 | Cat:3 (3. Roll to Roll Processing Machines) | [active] Paper Rewinding machine
+  ID:9 | Cat:3 (3. Roll to Roll Processing Machines) | [active] HM Paper Rewinding machine / Notebook Paper Rewinding machine
+  ID:10 | Cat:4 (4. Aluminium Foil Processing Machines) | [active] Aluminium Foil Rewinding machine
+  ID:11 | Cat:4 (4. Aluminium Foil Processing Machines) | [active] Aluminium Jumbo Roll Slitting Machine
+  ID:12 | Cat:5 (5. Printing Converting & Processing Machines) | [active] Rotogravure Printing Machine
+  ID:13 | Cat:5 (5. Printing Converting & Processing Machines) | [active] Flexographic Printing machine
+  ID:17 | Cat:6 (6. Adhesive Tape Processing machines) | [active] Masking Tape Rewinding machine
+  ID:14 | Cat:7 (a. BOPP Tape Slitting & Rewinding Machine) | [active] 300 MM Baby Type Slitting Rewinding machine
+  ID:15 | Cat:7 (a. BOPP Tape Slitting & Rewinding Machine) | [active] 1350 MM turret type Slitting Rewinding Machine
+  ID:16 | Cat:7 (a. BOPP Tape Slitting & Rewinding Machine) | [active] Core Cutting Machine for BOPP Tapes
+  ID:23 | Cat:10 (7. Coating Processing machines) | [active] BOPP Tape Coating Machine
+  ID:24 | Cat:10 (7. Coating Processing machines) | [active] Water Base Coating machine
+  ID:25 | Cat:10 (7. Coating Processing machines) | [active] Paper coating machine
+  ID:26 | Cat:10 (7. Coating Processing machines) | [active] Foam tape coating machine
+  ID:27 | Cat:11 (8. Plastic Film Embossing machine) | [active] Plastic Film Embossing machine
+  ID:28 | Cat:12 (9. Extra Converting machine & Equipment) | [active] Web Guide system
+  ID:29 | Cat:12 (9. Extra Converting machine & Equipment) | [active] Air Shafts
+  ID:30 | Cat:12 (9. Extra Converting machine & Equipment) | [active] Safety Chucks
+  ID:31 | Cat:12 (9. Extra Converting machine & Equipment) | [active] wrapping Machine
+  ID:32 | Cat:12 (9. Extra Converting machine & Equipment) | [active] Core Cutting Machine
+  ID:34 | Cat:13 (Masking tape Slicer Cutting Machine) | [active] Manual Model Slicer Cutting machine
+  ID:35 | Cat:13 (Masking tape Slicer Cutting Machine) | [active] Semiauto Model Slicer Cutting Machine
+  ID:21 | Cat:14 (PVC Tape Cutting Machine) | [active] Manual PVC Tape Cutting Machine
+  ID:22 | Cat:14 (PVC Tape Cutting Machine) | [active] Fully Auto Double Shaft PVC Tape Cutting machine

@@ -112,9 +112,9 @@ $current_page = basename($_SERVER['PHP_SELF']);
     </div>
     
     <!-- Navigation -->
-    <nav class="sticky top-0 w-full bg-black/95 backdrop-blur-sm z-50 border-b border-gray-800 shadow-lg">
+    <nav class="fixed top-0 w-full bg-black/95 backdrop-blur-sm z-50 border-b border-gray-800 shadow-lg">
         <div class="container mx-auto px-4 lg:px-8 relative">
-            <div class="flex justify-between items-center py-4">
+            <div id="navbar-inner" class="flex justify-between items-center py-4 transition-all duration-300">
                 <!-- Logo -->
                 <a href="index.php" class="flex items-center space-x-3 group">
                     <div class="relative">
@@ -140,72 +140,62 @@ $current_page = basename($_SERVER['PHP_SELF']);
                     <a href="index.php" class="nav-link <?php echo $current_page == 'index.php' ? 'active' : ''; ?> text-gray-300 hover:text-orange-600 transition-colors duration-300">Home</a>
                     
                     <!-- Products Mega Menu -->
-                    <div class="group/mega static">
+                    <div class="group static">
                         <a href="products.php" class="nav-link <?php echo $current_page == 'products.php' ? 'active' : ''; ?> text-gray-300 hover:text-orange-600 flex items-center transition-colors duration-300">
                             Products
-                            <i class="fas fa-chevron-down ml-2 text-xs transition-transform duration-300 group-hover/mega:rotate-180"></i>
+                            <i class="fas fa-chevron-down ml-2 text-xs transition-transform duration-300 group-hover:rotate-180"></i>
                         </a>
                         
                         <!-- Mega Menu Container -->
-                        <div class="absolute inset-x-0 top-full bg-black/95 backdrop-blur-xl border-x border-b border-gray-800 hidden group-hover/mega:block z-[100] py-12 shadow-2xl overflow-y-auto max-h-[80vh] animate-slide-down">
+                        <div class="absolute inset-x-0 top-full bg-black/95 backdrop-blur-xl border-x border-b border-gray-800 hidden group-hover:block z-[100] py-12 shadow-2xl overflow-y-auto max-h-[80vh] animate-slide-down">
                             <div class="container mx-auto px-4 lg:px-8">
-                                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 xl:grid-cols-5 gap-x-6 gap-y-10">
                                     <?php 
                                     // Fetch all 9 top-level groups from DB
                                     $stmt_cat = $pdo->query("SELECT * FROM categories WHERE parent_id IS NULL AND status = 'active' ORDER BY id ASC");
                                     while($category = $stmt_cat->fetch()): 
                                     ?>
                                     <div class="mega-column group/col">
-                                        <!-- Category Header with Image -->
-                                        <div class="relative w-full h-32 mb-4 overflow-hidden rounded-lg border border-gray-800 group-hover/col:border-orange-600 transition-all duration-500 shadow-lg">
-                                            <img src="<?php echo h($category['image']); ?>" alt="<?php echo h($category['name']); ?>" class="w-full h-full object-cover transition-transform duration-700 group-hover/col:scale-110">
-                                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
-                                            <div class="absolute bottom-3 left-3 right-3">
-                                                <h3 class="text-white font-heading font-bold text-[10px] uppercase tracking-wider group-hover/col:text-orange-500 transition-colors duration-300 leading-tight">
-                                                    <a href="products.php?category=<?php echo h($category['slug']); ?>">
-                                                        <?php echo h($category['name']); ?>
-                                                    </a>
-                                                </h3>
-                                            </div>
+                                        <!-- Category Header Text Only -->
+                                        <div class="mb-5 pb-3 border-b border-gray-800 group-hover/col:border-orange-600 transition-colors duration-300">
+                                            <h3 class="font-heading font-bold text-[11px] uppercase tracking-widest text-white group-hover/col:text-orange-500 transition-colors duration-300">
+                                                <a href="products.php?category=<?php echo h($category['slug']); ?>" class="block w-full">
+                                                    <?php echo h($category['name']); ?>
+                                                </a>
+                                            </h3>
                                         </div>
                                         
                                         <!-- Sub-items List (Categories or Products) -->
                                         <ul class="space-y-2 px-1">
                                             <?php 
-                                            // 1. First look for sub-categories
-                                            $stmt_sc = $pdo->prepare("SELECT * FROM categories WHERE parent_id = ? AND status = 'active' ORDER BY name ASC LIMIT 6");
+                                            // 1. Fetch sub-categories
+                                            $stmt_sc = $pdo->prepare("SELECT * FROM categories WHERE parent_id = ? AND status = 'active' ORDER BY name ASC");
                                             $stmt_sc->execute([$category['id']]);
                                             $sub_cats = $stmt_sc->fetchAll();
+                                            foreach ($sub_cats as $sc): 
+                                            ?>
+                                                <li>
+                                                    <a href="products.php?category=<?php echo h($sc['slug']); ?>" class="text-gray-400 hover:text-white text-[11px] transition-all duration-300 flex items-start group/item leading-tight">
+                                                        <span class="w-1.5 h-1.5 bg-orange-600 rounded-full mr-2 mt-1.5 group-hover/item:scale-125 transition-transform flex-shrink-0"></span>
+                                                        <span class="flex-1 font-bold"><?php echo h($sc['name']); ?></span>
+                                                    </a>
+                                                </li>
+                                            <?php endforeach; ?>
 
-                                            if (!empty($sub_cats)): 
-                                                foreach ($sub_cats as $sc): 
+                                            <?php 
+                                            // 2. Fetch direct products
+                                            $stmt_p = $pdo->prepare("SELECT * FROM products WHERE category_id = ? AND status = 'active' ORDER BY name ASC");
+                                            $stmt_p->execute([$category['id']]);
+                                            $prods = $stmt_p->fetchAll();
+                                            foreach ($prods as $p):
                                             ?>
                                                 <li>
-                                                    <a href="products.php?category=<?php echo h($sc['slug']); ?>" class="text-gray-400 hover:text-white text-[11px] transition-all duration-300 flex items-center group/item">
-                                                        <span class="w-1 h-1 bg-orange-600 rounded-full mr-2 group-hover/item:scale-125 transition-transform"></span>
-                                                        <?php echo h($sc['name']); ?>
+                                                    <a href="product-detail.php?product=<?php echo h($p['slug']); ?>" class="text-gray-400 hover:text-white text-[11px] transition-all duration-300 flex items-start group/item leading-tight">
+                                                        <span class="w-1.5 h-1.5 bg-orange-600/50 rounded-full mr-2 mt-1.5 group-hover/item:scale-125 transition-transform flex-shrink-0"></span>
+                                                        <span class="flex-1 italic"><?php echo h($p['name']); ?></span>
                                                     </a>
                                                 </li>
-                                            <?php 
-                                                endforeach;
-                                            else:
-                                                // 2. If no sub-categories, look for products directly
-                                                $stmt_p = $pdo->prepare("SELECT * FROM products WHERE category_id = ? AND status = 'active' ORDER BY name ASC LIMIT 6");
-                                                $stmt_p->execute([$category['id']]);
-                                                $prods = $stmt_p->fetchAll();
-                                                
-                                                foreach ($prods as $p):
-                                            ?>
-                                                <li>
-                                                    <a href="product-detail.php?product=<?php echo h($p['slug']); ?>" class="text-gray-400 hover:text-white text-[11px] transition-all duration-300 flex items-center group/item">
-                                                        <span class="w-1 h-1 bg-orange-600 rounded-full mr-2 group-hover/item:scale-125 transition-transform"></span>
-                                                        <?php echo h($p['name']); ?>
-                                                    </a>
-                                                </li>
-                                            <?php 
-                                                endforeach;
-                                            endif; 
-                                            ?>
+                                            <?php endforeach; ?>
                                             <li>
                                                 <a href="products.php?category=<?php echo h($category['slug']); ?>" class="text-orange-600/70 hover:text-orange-600 text-[10px] font-bold uppercase tracking-widest mt-2 block">
                                                     View Group <i class="fas fa-chevron-right text-[8px] ml-1"></i>

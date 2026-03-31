@@ -1,0 +1,351 @@
+Array
+(
+    [cats] => Array
+        (
+            [0] => Array
+                (
+                    [id] => 1
+                    [name] => Slitting Rewinding Applications
+                    [parent_id] => 
+                )
+
+            [1] => Array
+                (
+                    [id] => 2
+                    [name] => Center Shaft Slitting Rewinding Machines
+                    [parent_id] => 
+                )
+
+            [2] => Array
+                (
+                    [id] => 3
+                    [name] => Roll to Roll Processing Machines
+                    [parent_id] => 
+                )
+
+            [3] => Array
+                (
+                    [id] => 4
+                    [name] => Aluminium Foil Processing Machines
+                    [parent_id] => 
+                )
+
+            [4] => Array
+                (
+                    [id] => 5
+                    [name] => Printing Converting & Processing Machines
+                    [parent_id] => 
+                )
+
+            [5] => Array
+                (
+                    [id] => 6
+                    [name] => Adhesive Tape Processing machines
+                    [parent_id] => 
+                )
+
+            [6] => Array
+                (
+                    [id] => 7
+                    [name] => BOPP Tape Slitting & Rewinding Machine
+                    [parent_id] => 6
+                )
+
+            [7] => Array
+                (
+                    [id] => 8
+                    [name] => Slicer Cutting Machine
+                    [parent_id] => 6
+                )
+
+            [8] => Array
+                (
+                    [id] => 9
+                    [name] => PVC Tape Cutting Machine
+                    [parent_id] => 6
+                )
+
+            [9] => Array
+                (
+                    [id] => 10
+                    [name] => Coating Processing machines
+                    [parent_id] => 
+                )
+
+            [10] => Array
+                (
+                    [id] => 11
+                    [name] => Plastic Film Embossing machine
+                    [parent_id] => 
+                )
+
+            [11] => Array
+                (
+                    [id] => 12
+                    [name] => Extra Converting machine & Equipment
+                    [parent_id] => 
+                )
+
+        )
+
+    [prods] => Array
+        (
+            [0] => Array
+                (
+                    [id] => 1
+                    [name] => Paper slitting Rewinding machine
+                    [category_id] => 1
+                    [featured_image] => assets/images/categories/slitting-rewinding.jpg
+                )
+
+            [1] => Array
+                (
+                    [id] => 2
+                    [name] => Plastic Slitting Rewinding machine
+                    [category_id] => 1
+                    [featured_image] => assets/images/categories/slitting-rewinding.jpg
+                )
+
+            [2] => Array
+                (
+                    [id] => 3
+                    [name] => Non-woven Slitting Rewinding machine
+                    [category_id] => 1
+                    [featured_image] => assets/images/categories/slitting-rewinding.jpg
+                )
+
+            [3] => Array
+                (
+                    [id] => 4
+                    [name] => Paper Center Shaft Slitting Rewinding machine
+                    [category_id] => 2
+                    [featured_image] => assets/images/categories/center-shaft-slitting.png
+                )
+
+            [4] => Array
+                (
+                    [id] => 5
+                    [name] => Plastic Center Shaft Slitting Rewinding machine
+                    [category_id] => 2
+                    [featured_image] => assets/images/categories/center-shaft-slitting.png
+                )
+
+            [5] => Array
+                (
+                    [id] => 6
+                    [name] => Winding Rewinding machine
+                    [category_id] => 3
+                    [featured_image] => assets/images/categories/roll-to-roll.png
+                )
+
+            [6] => Array
+                (
+                    [id] => 7
+                    [name] => Doctroring Rewinding machine for batch Coding
+                    [category_id] => 3
+                    [featured_image] => assets/images/categories/roll-to-roll.png
+                )
+
+            [7] => Array
+                (
+                    [id] => 8
+                    [name] => Paper Rewinding machine
+                    [category_id] => 3
+                    [featured_image] => assets/images/categories/roll-to-roll.png
+                )
+
+            [8] => Array
+                (
+                    [id] => 9
+                    [name] => HM Paper Rewinding machine / Notebook Paper Rewinding machine
+                    [category_id] => 3
+                    [featured_image] => assets/images/categories/roll-to-roll.png
+                )
+
+            [9] => Array
+                (
+                    [id] => 10
+                    [name] => Aluminium Foil Rewinding machine
+                    [category_id] => 4
+                    [featured_image] => assets/images/categories/aluminium-foil.png
+                )
+
+            [10] => Array
+                (
+                    [id] => 11
+                    [name] => Aluminium Jumbo Roll Slitting Machine
+                    [category_id] => 4
+                    [featured_image] => assets/images/categories/aluminium-foil.png
+                )
+
+            [11] => Array
+                (
+                    [id] => 12
+                    [name] => Rotogravure Printing Machine
+                    [category_id] => 5
+                    [featured_image] => assets/images/categories/printing-converting.png
+                )
+
+            [12] => Array
+                (
+                    [id] => 13
+                    [name] => Flexographic Printing machine
+                    [category_id] => 5
+                    [featured_image] => assets/images/categories/printing-converting.png
+                )
+
+            [13] => Array
+                (
+                    [id] => 14
+                    [name] => 300 MM Baby Type Slitting Rewinding machine
+                    [category_id] => 7
+                    [featured_image] => assets/images/categories/masking-tape.png
+                )
+
+            [14] => Array
+                (
+                    [id] => 15
+                    [name] => 1350 MM turret type Slitting Rewinding Machine
+                    [category_id] => 7
+                    [featured_image] => assets/images/categories/masking-tape.png
+                )
+
+            [15] => Array
+                (
+                    [id] => 16
+                    [name] => Core Cutting Machine for BOPP Tapes
+                    [category_id] => 7
+                    [featured_image] => assets/images/categories/masking-tape.png
+                )
+
+            [16] => Array
+                (
+                    [id] => 17
+                    [name] => Masking Tape Rewinding machine
+                    [category_id] => 6
+                    [featured_image] => assets/images/categories/masking-tape.png
+                )
+
+            [17] => Array
+                (
+                    [id] => 18
+                    [name] => Masking tape Slicer Cutting Machine
+                    [category_id] => 8
+                    [featured_image] => assets/images/categories/masking-tape.png
+                )
+
+            [18] => Array
+                (
+                    [id] => 19
+                    [name] => Manual Model Slicer Cutting machine
+                    [category_id] => 8
+                    [featured_image] => assets/images/categories/masking-tape.png
+                )
+
+            [19] => Array
+                (
+                    [id] => 20
+                    [name] => Semiauto Model Slicer Cutting Machine
+                    [category_id] => 8
+                    [featured_image] => assets/images/categories/masking-tape.png
+                )
+
+            [20] => Array
+                (
+                    [id] => 21
+                    [name] => Manual PVC Tape Cutting Machine
+                    [category_id] => 9
+                    [featured_image] => assets/images/categories/masking-tape.png
+                )
+
+            [21] => Array
+                (
+                    [id] => 22
+                    [name] => Fully Auto Double Shaft PVC Tape Cutting machine
+                    [category_id] => 9
+                    [featured_image] => assets/images/categories/masking-tape.png
+                )
+
+            [22] => Array
+                (
+                    [id] => 23
+                    [name] => BOPP Tape Coating Machine
+                    [category_id] => 10
+                    [featured_image] => assets/images/placeholder-machinery.jpg
+                )
+
+            [23] => Array
+                (
+                    [id] => 24
+                    [name] => Water Base Coating machine
+                    [category_id] => 10
+                    [featured_image] => assets/images/placeholder-machinery.jpg
+                )
+
+            [24] => Array
+                (
+                    [id] => 25
+                    [name] => Paper coating machine
+                    [category_id] => 10
+                    [featured_image] => assets/images/placeholder-machinery.jpg
+                )
+
+            [25] => Array
+                (
+                    [id] => 26
+                    [name] => Foam tape coating machine
+                    [category_id] => 10
+                    [featured_image] => assets/images/placeholder-machinery.jpg
+                )
+
+            [26] => Array
+                (
+                    [id] => 27
+                    [name] => Plastic Film Embossing machine
+                    [category_id] => 11
+                    [featured_image] => assets/images/placeholder-machinery.jpg
+                )
+
+            [27] => Array
+                (
+                    [id] => 28
+                    [name] => Web Guide system
+                    [category_id] => 12
+                    [featured_image] => assets/images/placeholder-machinery.jpg
+                )
+
+            [28] => Array
+                (
+                    [id] => 29
+                    [name] => Air Shafts
+                    [category_id] => 12
+                    [featured_image] => assets/images/placeholder-machinery.jpg
+                )
+
+            [29] => Array
+                (
+                    [id] => 30
+                    [name] => Safety Chucks
+                    [category_id] => 12
+                    [featured_image] => assets/images/placeholder-machinery.jpg
+                )
+
+            [30] => Array
+                (
+                    [id] => 31
+                    [name] => wrapping Machine
+                    [category_id] => 12
+                    [featured_image] => assets/images/placeholder-machinery.jpg
+                )
+
+            [31] => Array
+                (
+                    [id] => 32
+                    [name] => Core Cutting Machine
+                    [category_id] => 12
+                    [featured_image] => undefined
+                )
+
+        )
+
+)

@@ -53,6 +53,10 @@ switch ($action) {
         }
 
         $files = $_FILES['files'];
+        // Incoming contexts
+        $product_name = $_POST['product_name'] ?? 'media';
+        $keyword = $_POST['keyword'] ?? 'viva';
+        
         $uploaded = [];
         $errors = [];
 
@@ -80,25 +84,79 @@ switch ($action) {
                 continue;
             }
 
-            $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
-            $new_filename = 'viva_media_' . time() . '_' . uniqid() . '.' . $ext;
+            // SEO Naming (lowercase, hyphens)
+            $clean_name = strtolower(preg_replace('/[^a-zA-Z0-9]+/', '-', $product_name));
+            $clean_keyword = strtolower(preg_replace('/[^a-zA-Z0-9]+/', '-', $keyword));
+            
+            // Check MD5 hash to prevent duplication of raw uploads
+            $hash = md5_file($file['tmp_name']);
+            $stmt = $pdo->prepare("SELECT id, file_path, alt_text FROM media WHERE hash = ?");
+            $stmt->execute([$hash]);
+            $existing = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($existing) {
+                $uploaded[] = [
+                    'id' => $existing['id'],
+                    'file_name' => basename($existing['file_path']),
+                    'file_path' => $existing['file_path'],
+                    'alt' => $existing['alt_text']
+                ];
+                continue;
+            }
+
+            // WEBP Conversion & Saving
             $target_dir = '../../uploads/media/';
+            if (!is_dir($target_dir)) { mkdir($target_dir, 0777, true); }
+            
+            $new_filename = $clean_name . '-' . $clean_keyword . '-' . uniqid() . '.webp';
             $target_file = $target_dir . $new_filename;
 
-            if (move_uploaded_file($file['tmp_name'], $target_file)) {
+            // GD Compression to WEBP
+            $source_img = null;
+            if (strpos($file['type'], 'png') !== false) {
+                $source_img = @imagecreatefrompng($file['tmp_name']);
+                if ($source_img) {
+                    imagepalettetotruecolor($source_img);
+                    imagealphablending($source_img, true);
+                    imagesavealpha($source_img, true);
+                }
+            } elseif (strpos($file['type'], 'webp') !== false) {
+                $source_img = @imagecreatefromwebp($file['tmp_name']);
+            } else {
+                $source_img = @imagecreatefromjpeg($file['tmp_name']);
+            }
+
+            $saved = false;
+            if ($source_img) {
+                $saved = imagewebp($source_img, $target_file, 80); // 80 quality highly compressed
+                imagedestroy($source_img);
+            } else {
+                // Fallback to move if GD fails
+                $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
+                $new_filename = $clean_name . '-' . $clean_keyword . '-' . uniqid() . '.' . $ext;
+                $target_file = $target_dir . $new_filename;
+                $saved = move_uploaded_file($file['tmp_name'], $target_file);
+            }
+
+            if ($saved) {
                 $file_path = 'uploads/media/' . $new_filename;
+                $file_size = filesize($target_file);
+                $alt_text = $product_name . " " . $keyword;
+                $title = $product_name;
                 
                 // Save to DB
-                $stmt = $pdo->prepare("INSERT INTO media (file_name, file_path, file_type, file_size) VALUES (?, ?, ?, ?)");
-                $stmt->execute([$file['name'], $file_path, $file['type'], $file['size']]);
+                $stmt = $pdo->prepare("INSERT INTO media (file_name, file_path, file_type, file_size, alt_text, title, hash) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                $stmt->execute([$new_filename, $file_path, 'image/webp', $file_size, $alt_text, $title, $hash]);
+                $new_id = $pdo->lastInsertId();
                 
                 $uploaded[] = [
-                    'id' => $pdo->lastInsertId(),
-                    'file_name' => $file['name'],
-                    'file_path' => $file_path
+                    'id' => $new_id,
+                    'file_name' => $new_filename,
+                    'file_path' => $file_path,
+                    'alt' => $alt_text
                 ];
             } else {
-                $errors[] = "Failed to move " . $file['name'];
+                $errors[] = "Failed to process " . $file['name'];
             }
         }
 
@@ -136,6 +194,17 @@ switch ($action) {
         } catch (PDOException $e) {
             echo json_encode(['success' => false, 'message' => $e->getMessage()]);
         }
+        break;
+
+    case 'update_meta':
+        $id = $_POST['id'] ?? null;
+        if (!$id) { echo json_encode(['success'=>false]); exit; }
+        
+        $alt = $_POST['alt_text'] ?? '';
+        $title = $_POST['title'] ?? '';
+        $stmt = $pdo->prepare("UPDATE media SET alt_text = ?, title = ? WHERE id = ?");
+        $stmt->execute([$alt, $title, $id]);
+        echo json_encode(['success'=>true]);
         break;
 
     default:

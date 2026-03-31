@@ -25,9 +25,23 @@ $meta_keywords = $product['meta_keywords'] ?? '';
 $features = parseField($product['features'] ?? '');
 $specifications = parseSpecs($product['specifications'] ?? '');
 $applications = parseField($product['applications'] ?? '');
+$featured_img = !empty($product['featured_image']) ? $product['featured_image'] : (!empty($product['image']) ? $product['image'] : 'v.jpeg');
+
+$gallery_paths = [];
+if (!empty($product['gallery_images'])) {
+    $decoded = json_decode($product['gallery_images'], true);
+    if (is_array($decoded)) {
+        foreach ($decoded as $item) {
+            if (isset($item['path'])) $gallery_paths[] = h($item['path']);
+        }
+    }
+} elseif (!empty($product['gallery'])) {
+    $gallery_paths = array_map('h', explode(',', $product['gallery']));
+}
+
 $gallery = array_merge(
-    [!empty($product['image']) ? h($product['image']) : 'v.jpeg'],
-    !empty($product['gallery']) ? array_map('h', explode(',', $product['gallery'])) : []
+    [h($featured_img)],
+    $gallery_paths
 );
 $gallery = array_unique(array_filter($gallery));
 

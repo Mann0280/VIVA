@@ -13,7 +13,7 @@ if (isset($_GET['delete'])) {
     }
     
     $pdo->prepare("DELETE FROM gallery WHERE id = ?")->execute([$id]);
-    header("Location: index.php?msg=deleted");
+    header("Location: " . route('gallery') . "?msg=deleted");
     exit;
 }
 
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['image'])) {
     if ($image) {
         $stmt = $pdo->prepare("INSERT INTO gallery (title, category, description, image) VALUES (?, ?, ?, ?)");
         $stmt->execute([$title, $category, $desc, 'uploads/gallery/' . $image]);
-        header("Location: index.php?msg=added");
+        header("Location: " . route('gallery') . "?msg=added");
         exit;
     }
 }
@@ -60,7 +60,7 @@ require_once '../includes/header.php';
             <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                 <div class="flex space-x-2">
                     <a href="../../<?php echo h($item['image']); ?>" target="_blank" class="w-8 h-8 bg-orange-600 rounded-full flex items-center justify-center text-xs text-white"><i class="fas fa-eye"></i></a>
-                    <a href="?delete=<?php echo $item['id']; ?>" onclick="return confirm('Delete this image?')" class="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center text-xs text-white"><i class="fas fa-trash"></i></a>
+                    <a href="<?php echo route('gallery.delete', ['id' => $item['id']]); ?>" onclick="return confirm('Delete this image?')" class="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center text-xs text-white"><i class="fas fa-trash"></i></a>
                 </div>
             </div>
         </div>

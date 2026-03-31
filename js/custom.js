@@ -160,16 +160,14 @@ function initMicroInteractions() {
     });
 }
 
-// Navbar scroll effect
+// Navbar scroll effect: Gracefully shrink header on scroll
 window.addEventListener('scroll', () => {
-    const nav = document.querySelector('nav');
-    if (nav) {
+    const navInner = document.getElementById('navbar-inner');
+    if (navInner) {
         if (window.scrollY > 50) {
-            nav.classList.add('glass-morphism', 'py-4');
-            nav.classList.remove('py-6');
+            navInner.classList.replace('py-4', 'py-1');
         } else {
-            nav.classList.remove('glass-morphism', 'py-4');
-            nav.classList.add('py-6');
+            navInner.classList.replace('py-1', 'py-4');
         }
     }
 });
@@ -417,3 +415,30 @@ function initGallery() {
         if (lbBg) lbBg.addEventListener('click', closeFunc);
     }
 }
+
+// Global generic observer to catch all Tailwind animated elements that weren't specifically handled by GSAP
+document.addEventListener('DOMContentLoaded', () => {
+    const fallbackObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const el = entry.target;
+                const delay = parseInt(el.getAttribute('data-delay')) || 0;
+                setTimeout(() => {
+                    el.classList.remove('opacity-0', 'translate-y-10', '-translate-x-10', 'translate-x-10', 'scale-95');
+                    el.classList.add('opacity-100', 'translate-y-0', 'translate-x-0', 'scale-100');
+                    observer.unobserve(el);
+                }, delay);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    // Find all elements with these animation utility classes
+    document.querySelectorAll('.animate-on-scroll, .opacity-0.transform').forEach(el => {
+        if (!el.classList.contains('duration-700') && !el.classList.contains('duration-1000') && !el.classList.contains('duration-500')) {
+            el.classList.add('duration-700', 'transition-all', 'ease-out');
+        } else {
+            el.classList.add('transition-all', 'ease-out');
+        }
+        fallbackObserver.observe(el);
+    });
+});

@@ -98,7 +98,7 @@ $current_admin_page = basename($_SERVER['PHP_SELF']);
         <aside class="admin-sidebar w-64 flex-shrink-0 flex flex-col h-full z-50">
             <!-- Sidebar Header -->
             <div class="p-6 border-b border-gray-800">
-                <a href="<?php echo ADMIN_URL; ?>/dashboard.php" class="flex items-center space-x-3">
+                <a href="<?php echo route('dashboard'); ?>" class="flex items-center space-x-3">
                     <img src="../v.jpeg" alt="VIVA Logo" class="w-8 h-8 rounded bg-white p-1">
                     <div>
                         <h1 class="text-sm font-heading font-bold tracking-tight text-white leading-none">VIVA<span class="text-orange-600"> ADMIN</span></h1>
@@ -109,7 +109,7 @@ $current_admin_page = basename($_SERVER['PHP_SELF']);
 
             <!-- Navigation -->
             <nav class="flex-1 px-4 py-6 space-y-2 sidebar-scroll overflow-y-auto">
-                <a href="<?php echo ADMIN_URL; ?>/dashboard.php" class="nav-item flex items-center px-4 py-3 rounded-lg <?php echo ($current_admin_page == 'dashboard.php') ? 'active' : ''; ?>">
+                <a href="<?php echo route('dashboard'); ?>" class="nav-item flex items-center px-4 py-3 rounded-lg <?php echo is_route('dashboard') ? 'active' : ''; ?>">
                     <i class="fas fa-chart-line w-6"></i>
                     <span class="text-sm">Dashboard</span>
                 </a>
@@ -118,12 +118,12 @@ $current_admin_page = basename($_SERVER['PHP_SELF']);
                     <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Management</p>
                 </div>
                 
-                <a href="<?php echo ADMIN_URL; ?>/categories/" class="nav-item flex items-center px-4 py-3 rounded-lg <?php echo (strpos($_SERVER['PHP_SELF'], '/categories/') !== false) ? 'active' : ''; ?>">
+                <a href="<?php echo route('categories'); ?>" class="nav-item flex items-center px-4 py-3 rounded-lg <?php echo is_route('categories') ? 'active' : ''; ?>">
                     <i class="fas fa-th-large w-6"></i>
                     <span class="text-sm">Categories</span>
                 </a>
                 
-                <a href="<?php echo ADMIN_URL; ?>/products/" class="nav-item flex items-center px-4 py-3 rounded-lg <?php echo (strpos($_SERVER['PHP_SELF'], '/products/') !== false) ? 'active' : ''; ?>">
+                <a href="<?php echo route('products'); ?>" class="nav-item flex items-center px-4 py-3 rounded-lg <?php echo is_route('products') ? 'active' : ''; ?>">
                     <i class="fas fa-cogs w-6"></i>
                     <span class="text-sm">Products</span>
                 </a>
@@ -133,7 +133,7 @@ $current_admin_page = basename($_SERVER['PHP_SELF']);
                 $new_msgs_stmt = $pdo->query("SELECT COUNT(*) FROM contact_requests WHERE status = 'new'");
                 $new_msgs_count = $new_msgs_stmt->fetchColumn();
                 ?>
-                <a href="<?php echo ADMIN_URL; ?>/messages.php" class="nav-item flex items-center px-4 py-3 rounded-lg <?php echo ($current_admin_page == 'messages.php') ? 'active' : ''; ?>">
+                <a href="<?php echo route('messages'); ?>" class="nav-item flex items-center px-4 py-3 rounded-lg <?php echo is_route('messages') ? 'active' : ''; ?>">
                     <i class="fas fa-envelope w-6"></i>
                     <span class="text-sm flex-1 text-left">Messages</span>
                     <?php if ($new_msgs_count > 0): ?>
@@ -141,17 +141,17 @@ $current_admin_page = basename($_SERVER['PHP_SELF']);
                     <?php endif; ?>
                 </a>
 
-                <a href="<?php echo ADMIN_URL; ?>/gallery/" class="nav-item flex items-center px-4 py-3 rounded-lg <?php echo (strpos($_SERVER['PHP_SELF'], '/gallery/') !== false) ? 'active' : ''; ?>">
+                <a href="<?php echo route('gallery'); ?>" class="nav-item flex items-center px-4 py-3 rounded-lg <?php echo is_route('gallery') ? 'active' : ''; ?>">
                     <i class="fas fa-images w-6"></i>
                     <span class="text-sm">Gallery</span>
                 </a>
 
-                <a href="<?php echo ADMIN_URL; ?>/media-library.php" class="nav-item flex items-center px-4 py-3 rounded-lg <?php echo ($current_admin_page == 'media-library.php') ? 'active' : ''; ?>">
+                <a href="<?php echo route('media'); ?>" class="nav-item flex items-center px-4 py-3 rounded-lg <?php echo is_route('media') ? 'active' : ''; ?>">
                     <i class="fas fa-photo-video w-6"></i>
                     <span class="text-sm">Media Library</span>
                 </a>
 
-                <a href="<?php echo ADMIN_URL; ?>/settings.php" class="nav-item flex items-center px-4 py-3 rounded-lg <?php echo ($current_admin_page == 'settings.php') ? 'active' : ''; ?>">
+                <a href="<?php echo route('settings'); ?>" class="nav-item flex items-center px-4 py-3 rounded-lg <?php echo is_route('settings') ? 'active' : ''; ?>">
                     <i class="fas fa-cog w-6"></i>
                     <span class="text-sm">Settings</span>
                 </a>
@@ -160,12 +160,12 @@ $current_admin_page = basename($_SERVER['PHP_SELF']);
                     <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">System</p>
                 </div>
 
-                <a href="/" target="_blank" class="nav-item flex items-center px-4 py-3 rounded-lg">
+                <a href="<?php echo route('site.home'); ?>" target="_blank" class="nav-item flex items-center px-4 py-3 rounded-lg">
                     <i class="fas fa-external-link-alt w-6"></i>
                     <span class="text-sm">Visit Website</span>
                 </a>
 
-                <a href="<?php echo ADMIN_URL; ?>/logout.php" class="nav-item flex items-center px-4 py-3 rounded-lg text-red-500 hover:bg-red-500/10">
+                <a href="<?php echo route('logout'); ?>" class="nav-item flex items-center px-4 py-3 rounded-lg text-red-500 hover:bg-red-500/10">
                     <i class="fas fa-sign-out-alt w-6"></i>
                     <span class="text-sm">Logout</span>
                 </a>

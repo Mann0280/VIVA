@@ -45,7 +45,7 @@ if (isset($_GET['toggle_featured'])) {
     $stmt = $pdo->prepare("UPDATE categories SET featured = 1 - featured WHERE id = ?");
     if ($stmt->execute([$id])) {
         // Redirect to clean URL
-        header('Location: ' . $_SERVER['PHP_SELF']);
+        header('Location: ' . route('categories'));
         exit;
     }
 }
@@ -216,7 +216,7 @@ require_once '../includes/header.php';
                             <?php echo $edit_cat ? 'Update Category' : 'Add Category'; ?>
                         </button>
                         <?php if ($edit_cat): ?>
-                            <a href="index.php" class="bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-xl transition-all">Cancel</a>
+                            <a href="<?php echo route('categories'); ?>" class="bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-xl transition-all">Cancel</a>
                         <?php endif; ?>
                     </div>
                 </form>
@@ -263,7 +263,7 @@ require_once '../includes/header.php';
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 text-center">
-                                            <a href="?toggle_featured=<?php echo $cat['id']; ?>" class="inline-block transition-all hover:scale-125">
+                                            <a href="<?php echo route('categories.toggle', ['id' => $cat['id']]); ?>" class="inline-block transition-all hover:scale-125">
                                                 <?php if ($cat['featured']): ?>
                                                     <i class="fas fa-star text-orange-500 text-lg drop-shadow-[0_0_8px_rgba(249,115,22,0.4)]"></i>
                                                 <?php else: ?>
@@ -280,10 +280,10 @@ require_once '../includes/header.php';
                                             </span>
                                         </td>
                                         <td class="px-6 py-4 text-right space-x-3">
-                                            <a href="?edit=<?php echo $cat['id']; ?>" class="text-gray-400 hover:text-orange-600 transition-colors">
+                                            <a href="<?php echo route('categories.edit', ['id' => $cat['id']]); ?>" class="text-gray-400 hover:text-orange-600 transition-colors">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <a href="?delete=<?php echo $cat['id']; ?>" onclick="return confirm('Note: Deleting a category will also delete all its subcategories and products. Proceed?')" class="text-gray-400 hover:text-red-500 transition-colors">
+                                            <a href="<?php echo route('categories.delete', ['id' => $cat['id']]); ?>" onclick="return confirm('Note: Deleting a category will also delete all its subcategories and products. Proceed?')" class="text-gray-400 hover:text-red-500 transition-colors">
                                                 <i class="fas fa-trash"></i>
                                             </a>
                                         </td>

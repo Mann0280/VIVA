@@ -9,7 +9,7 @@ if (isset($_GET['toggle_featured'])) {
         // Redirect to clean URL
         $search = $_GET['search'] ?? '';
         $cat_filter = $_GET['cat_id'] ?? '';
-        header('Location: ' . $_SERVER['PHP_SELF'] . ($search ? "?search=$search" : "") . ($cat_filter ? (strpos($_SERVER['PHP_SELF'], '?') ? "&" : "?") . "cat_id=$cat_filter" : ""));
+        header('Location: ' . route('products') . ($search ? "?search=$search" : "") . ($cat_filter ? (strpos(route('products'), '?') ? "&" : "?") . "cat_id=$cat_filter" : ""));
         exit;
     }
 }
@@ -23,7 +23,7 @@ if (isset($_GET['delete'])) {
         // Redirect to clean URL after delete
         $search = $_GET['search'] ?? '';
         $cat_filter = $_GET['cat_id'] ?? '';
-        header('Location: ' . $_SERVER['PHP_SELF'] . ($search ? "?search=$search" : "") . ($cat_filter ? (strpos($_SERVER['PHP_SELF'], '?') ? "&" : "?") . "cat_id=$cat_filter" : ""));
+        header('Location: ' . route('products') . ($search ? "?search=$search" : "") . ($cat_filter ? (strpos(route('products'), '?') ? "&" : "?") . "cat_id=$cat_filter" : ""));
         exit;
     }
 }
@@ -49,39 +49,44 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save_product'])) {
     $applications = sanitizeInput($_POST['applications'] ?? '');
     $benefits = sanitizeInput($_POST['benefits'] ?? '');
     $specifications = sanitizeInput($_POST['specifications'] ?? '');
-    $gallery = sanitizeInput($_POST['gallery'] ?? '');
+    
     $seo_title = sanitizeInput($_POST['seo_title'] ?? '');
     $seo_description = sanitizeInput($_POST['seo_description'] ?? '');
     $meta_keywords = sanitizeInput($_POST['meta_keywords'] ?? '');
     $status = $_POST['status'] ?? 'active';
     $featured = isset($_POST['featured']) ? 1 : 0;
     $product_id = $_POST['product_id'] ?? null;
-    $image = $_POST['image_path'] ?? ($_POST['current_image'] ?? '');
 
-    // Image Upload is now handled by Media Library AJAX
+    // Media Library Integration (JSON & Paths)
+    $gallery_images = $_POST['gallery_images'] ?? ''; // Accept JSON string directly
+    $featured_image = $_POST['featured_image'] ?? ($_POST['current_image'] ?? null);
 
-    if (empty($error_message)) {
-        if (slugExists('products', $slug, $product_id)) {
-            $error_message = "Error: Slug '$slug' already exists for a product.";
-        } else {
-            if ($product_id) {
-                // Update
-                $stmt = $pdo->prepare("UPDATE products SET category_id = ?, name = ?, slug = ?, tagline = ?, tag = ?, price = ?, availability = ?, lead_time = ?, description = ?, features = ?, applications = ?, benefits = ?, specifications = ?, image = ?, gallery = ?, seo_title = ?, seo_description = ?, meta_keywords = ?, status = ?, featured = ? WHERE id = ?");
-                $params = [$category_id, $name, $slug, $tagline, $tag, $price, $availability, $lead_time, $description, $features, $applications, $benefits, $specifications, $image, $gallery, $seo_title, $seo_description, $meta_keywords, $status, $featured, $product_id];
-                if ($stmt->execute($params)) {
-                    $success_message = "Product '$name' updated successfully!";
-                }
+        if (empty($error_message)) {
+            if (slugExists('products', $slug, $product_id)) {
+                $error_message = "Error: Slug '$slug' already exists for a product.";
             } else {
-                // Insert
-                $stmt = $pdo->prepare("INSERT INTO products (category_id, name, slug, tagline, tag, price, availability, lead_time, description, features, applications, benefits, specifications, image, gallery, seo_title, seo_description, meta_keywords, status, featured) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                $params = [$category_id, $name, $slug, $tagline, $tag, $price, $availability, $lead_time, $description, $features, $applications, $benefits, $specifications, $image, $gallery, $seo_title, $seo_description, $meta_keywords, $status, $featured];
-                if ($stmt->execute($params)) {
-                    $success_message = "Product '$name' added successfully!";
-                }
+                if ($product_id) {
+                    // Update using new column names
+                    $stmt = $pdo->prepare("UPDATE products SET category_id = ?, name = ?, slug = ?, tagline = ?, tag = ?, price = ?, availability = ?, lead_time = ?, description = ?, features = ?, applications = ?, benefits = ?, specifications = ?, featured_image = ?, gallery_images = ?, seo_title = ?, seo_description = ?, meta_keywords = ?, status = ?, featured = ? WHERE id = ?");
+                    $params = [$category_id, $name, $slug, $tagline, $tag, $price, $availability, $lead_time, $description, $features, $applications, $benefits, $specifications, $featured_image, $gallery_images, $seo_title, $seo_description, $meta_keywords, $status, $featured, $product_id];
+                    if ($stmt->execute($params)) {
+                        $success_message = "Machine '$name' updated successfully!";
+                        $edit_prod = null; // Clear edit mode to show list
+                    }
+                } else {
+                    // Insert using new column names
+                    $stmt = $pdo->prepare("INSERT INTO products (category_id, name, slug, tagline, tag, price, availability, lead_time, description, features, applications, benefits, specifications, featured_image, gallery_images, seo_title, seo_description, meta_keywords, status, featured) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                    $params = [$category_id, $name, $slug, $tagline, $tag, $price, $availability, $lead_time, $description, $features, $applications, $benefits, $specifications, $featured_image, $gallery_images, $seo_title, $seo_description, $meta_keywords, $status, $featured];
+                    if ($stmt->execute($params)) {
+                        $success_message = "Machine '$name' added successfully!";
+                    }
             }
         }
     }
 }
+
+// Success message from session/redirect
+if(isset($_GET['success'])) $success_message = $_GET['success'];
 
 // Get Product for Editing
 $edit_prod = null;
@@ -91,8 +96,8 @@ if (isset($_GET['edit'])) {
     $edit_prod = $stmt->fetch();
 }
 
-// Fetch Leaf Categories for Dropdown
-$leaf_categories = getLeafCategories();
+// Fetch Category Tree for Dropdown
+$all_categories = getCategoryTree();
 
 // Fetch Products for List
 $search = $_GET['search'] ?? '';
@@ -127,7 +132,7 @@ $products = $stmt->fetchAll();
             <h1 class="text-2xl font-heading font-bold">Product <span class="text-orange-600">Management</span></h1>
             <p class="text-sm text-gray-400">Manage your industrial machines, specifications, and SEO metadata.</p>
         </div>
-        <a href="<?php echo $_SERVER['PHP_SELF']; ?>?action=add" class="bg-orange-600/10 hover:bg-orange-600 border border-orange-600/30 text-orange-500 hover:text-white font-bold py-2 px-6 rounded-lg transition-all shadow-md active:scale-95 flex items-center">
+        <a href="<?php echo route('products.add'); ?>" class="bg-orange-600/10 hover:bg-orange-600 border border-orange-600/30 text-orange-500 hover:text-white font-bold py-2 px-6 rounded-lg transition-all shadow-md active:scale-95 flex items-center">
             <i class="fas fa-plus mr-2"></i> Add New Product
         </a>
     </div>
@@ -142,9 +147,9 @@ $products = $stmt->fetchAll();
             </div>
             <select name="cat_id" class="bg-gray-900 border border-gray-800 rounded-xl py-3 px-6 text-white focus:outline-none focus:border-orange-600 transition-all">
                 <option value="">All Categories</option>
-                <?php foreach ($leaf_categories as $cat): ?>
+                <?php foreach ($all_categories as $cat): ?>
                     <option value="<?php echo $cat['id']; ?>" <?php echo $cat_filter == $cat['id'] ? 'selected' : ''; ?>>
-                        <?php echo $cat['name']; ?>
+                        <?php echo h($cat['display_name']); ?>
                     </option>
                 <?php endforeach; ?>
             </select>
@@ -181,12 +186,12 @@ $products = $stmt->fetchAll();
             </div>
             <div class="flex items-center space-x-4">
                 <?php if ($edit_prod): ?>
-                <a href="../../product-detail.php?product=<?php echo $edit_prod['slug']; ?>" target="_blank" 
+                <a href="<?php echo route('site.product', ['slug' => $edit_prod['slug']]); ?>" target="_blank" 
                     class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl text-sm font-bold transition-all flex items-center shadow-lg shadow-blue-600/20">
                     <i class="fas fa-external-link-alt mr-2"></i> View Live
                 </a>
-                <?php endif; ?>
-                <a href="index.php" class="bg-gray-800 hover:bg-gray-700 text-gray-300 px-6 py-3 rounded-xl text-sm font-bold transition-all">
+<?php endif; ?>
+                <a href="<?php echo route('products'); ?>" class="bg-gray-800 hover:bg-gray-700 text-gray-300 px-6 py-3 rounded-xl text-sm font-bold transition-all">
                     <i class="fas fa-times mr-2"></i> Close
                 </a>
             </div>
@@ -195,7 +200,7 @@ $products = $stmt->fetchAll();
         <form method="POST" enctype="multipart/form-data" class="grid grid-cols-1 md:grid-cols-12 gap-10">
             <?php if ($edit_prod): ?>
                 <input type="hidden" name="product_id" value="<?php echo $edit_prod['id']; ?>">
-                <input type="hidden" name="current_image" value="<?php echo $edit_prod['image']; ?>">
+                <input type="hidden" name="current_image" value="<?php echo $edit_prod['featured_image'] ?? ''; ?>">
             <?php endif; ?>
 
             <!-- Main Content Column -->
@@ -217,9 +222,9 @@ $products = $stmt->fetchAll();
                             <label class="block text-[11px] font-bold text-gray-500 uppercase tracking-widest pl-1">Category</label>
                             <select name="category_id" required class="w-full bg-white/5 border border-gray-800 rounded-xl py-4 px-5 text-white focus:outline-none focus:border-orange-600 transition-all appearance-none cursor-pointer">
                                 <option value="">Select Category</option>
-                                <?php foreach ($leaf_categories as $cat): ?>
+                                <?php foreach ($all_categories as $cat): ?>
                                     <option value="<?php echo $cat['id']; ?>" <?php echo (isset($edit_prod['category_id']) && $edit_prod['category_id'] == $cat['id']) ? 'selected' : ''; ?>>
-                                        <?php echo $cat['name']; ?>
+                                        <?php echo h($cat['display_name']); ?>
                                     </option>
                                 <?php endforeach; ?>
                             </select>
@@ -366,11 +371,11 @@ $products = $stmt->fetchAll();
                     </h4>
                     
                     <div class="space-y-4">
-                        <input type="hidden" name="image_path" id="product_image_path" value="<?php echo $edit_prod['image'] ?? ''; ?>">
+                        <input type="hidden" name="featured_image" id="product_image_path" value="<?php echo $edit_prod['featured_image'] ?? ''; ?>">
                         
                         <div id="image_preview_container" class="bg-white/5 border-2 border-dashed border-gray-800 rounded-2xl p-6 text-center group hover:border-orange-600/50 transition-all cursor-pointer" onclick="openProductMediaPicker()">
-                            <?php if (isset($edit_prod['image']) && $edit_prod['image']): ?>
-                                <img src="../../<?php echo $edit_prod['image']; ?>" id="product_image_preview" class="w-full h-48 object-contain rounded-xl bg-white/5 p-4 mb-4">
+                            <?php if (isset($edit_prod['featured_image']) && $edit_prod['featured_image']): ?>
+                                <img src="../../<?php echo $edit_prod['featured_image']; ?>" id="product_image_preview" class="w-full h-48 object-contain rounded-xl bg-white/5 p-4 mb-4">
                                 <p class="text-xs text-gray-500">Click to change machine image</p>
                             <?php else: ?>
                                 <div id="no_image_placeholder" class="py-10">
@@ -397,17 +402,21 @@ $products = $stmt->fetchAll();
                     </h4>
                     
                     <div class="space-y-4">
-                        <input type="hidden" name="gallery" id="product_gallery_input" value="<?php echo $edit_prod['gallery'] ?? ''; ?>">
+                        <input type="hidden" name="gallery_images" id="product_gallery_input" value="<?php echo htmlspecialchars($edit_prod['gallery_images'] ?? '[]'); ?>">
                         
                         <div id="gallery_preview_container" class="grid grid-cols-2 gap-4">
                             <!-- Thumbnails injected by JS -->
                             <?php 
-                            $gallery_items = !empty($edit_prod['gallery']) ? explode(',', $edit_prod['gallery']) : [];
-                            foreach ($gallery_items as $idx => $g_path): 
+                            $gallery_items = [];
+                            if (!empty($edit_prod['gallery_images'])) {
+                                $decoded = json_decode($edit_prod['gallery_images'], true);
+                                if (is_array($decoded)) $gallery_items = $decoded;
+                            }
+                            foreach ($gallery_items as $idx => $g_item): 
                             ?>
-                            <div class="gallery-item-wrapper relative group/gallery bg-white/5 rounded-xl border border-gray-800 p-2 overflow-hidden" data-path="<?php echo h($g_path); ?>">
-                                <img src="../../<?php echo h($g_path); ?>" class="w-full h-24 object-cover rounded-lg">
-                                <button type="button" onclick="removeFromGallery('<?php echo h($g_path); ?>', this)" 
+                            <div class="gallery-item-wrapper relative group/gallery bg-white/5 rounded-xl border border-gray-800 p-2 overflow-hidden" data-id="<?php echo $g_item['id']; ?>">
+                                <img src="../../<?php echo h($g_item['path']); ?>" class="w-full h-24 object-cover rounded-lg">
+                                <button type="button" onclick="removeFromGallery(<?php echo $g_item['id']; ?>, this)" 
                                     class="absolute top-2 right-2 w-7 h-7 bg-red-600 text-white rounded-full flex items-center justify-center opacity-0 group-hover/gallery:opacity-100 transition-all shadow-xl hover:bg-red-700">
                                     <i class="fas fa-times text-xs"></i>
                                 </button>
@@ -424,8 +433,14 @@ $products = $stmt->fetchAll();
 
                 <script>
                 function openProductMediaPicker() {
-                    MediaManager.open({ multiple: false }, function(item) {
-                        const path = item.file_path;
+                    let pName = document.querySelector('input[name="name"]').value;
+                    let pKey = document.querySelector('input[name="meta_keywords"]').value;
+
+                    openMediaManager({ multiple: false, productName: pName, keyword: pKey }, function(selection) {
+                        const item = Array.isArray(selection) ? selection[0] : selection;
+                        if(!item) return;
+
+                        const path = item.path;
                         document.getElementById('product_image_path').value = path;
                         
                         const container = document.getElementById('image_preview_container');
@@ -437,36 +452,53 @@ $products = $stmt->fetchAll();
                 }
 
                 function openGalleryPicker() {
-                    MediaManager.open({ multiple: true }, function(items) {
-                        const selection = Array.isArray(items) ? items : [items];
+                    let pName = document.querySelector('input[name="name"]').value;
+                    let pKey = document.querySelector('input[name="meta_keywords"]').value;
+
+                    openMediaManager({ multiple: true, productName: pName, keyword: pKey }, function(selection) {
+                        const items = Array.isArray(selection) ? selection : [selection];
+                        if(items.length === 0) return;
+
                         const galleryInput = document.getElementById('product_gallery_input');
-                        let currentGallery = galleryInput.value ? galleryInput.value.split(',') : [];
+                        let currentGallery = [];
+                        try {
+                            const parsed = JSON.parse(galleryInput.value || '[]');
+                            if(Array.isArray(parsed)) currentGallery = parsed;
+                        } catch(e) { }
                         
-                        selection.forEach(item => {
-                            if (!currentGallery.includes(item.path)) {
-                                currentGallery.push(item.path);
+                        // Merge logic avoiding duplicates based on ID
+                        items.forEach(newItem => {
+                            if (!currentGallery.find(g => g.id === newItem.id)) {
+                                currentGallery.push({ id: newItem.id, path: newItem.path, alt: newItem.alt });
                             }
                         });
                         
-                        galleryInput.value = currentGallery.join(',');
-                        renderGalleryPreview(currentGallery);
+                        galleryInput.value = JSON.stringify(currentGallery);
+                        renderGalleryThumbnails(currentGallery);
                     });
                 }
 
-                function removeFromGallery(path, el) {
+                function removeFromGallery(id, btnElement) {
                     const galleryInput = document.getElementById('product_gallery_input');
-                    let currentGallery = galleryInput.value.split(',');
-                    currentGallery = currentGallery.filter(p => p !== path);
-                    galleryInput.value = currentGallery.join(',');
-                    el.closest('.gallery-item-wrapper').remove();
+                    let currentGallery = [];
+                    try {
+                        currentGallery = JSON.parse(galleryInput.value || '[]');
+                    } catch(e) {}
+                    
+                    // Remove from JSON completely
+                    currentGallery = currentGallery.filter(item => item.id !== id);
+                    galleryInput.value = JSON.stringify(currentGallery);
+                    
+                    // Remove from DOM safely
+                    btnElement.closest('.gallery-item-wrapper').remove();
                 }
 
-                function renderGalleryPreview(gallery) {
+                function renderGalleryThumbnails(galleryArray) {
                     const container = document.getElementById('gallery_preview_container');
-                    container.innerHTML = gallery.map(path => `
-                        <div class="gallery-item-wrapper relative group/gallery bg-white/5 rounded-xl border border-gray-800 p-2 overflow-hidden" data-path="${path}">
-                            <img src="../../${path}" class="w-full h-24 object-cover rounded-lg">
-                            <button type="button" onclick="removeFromGallery('${path}', this)" 
+                    container.innerHTML = galleryArray.map(item => `
+                        <div class="gallery-item-wrapper relative group/gallery bg-white/5 rounded-xl border border-gray-800 p-2 overflow-hidden" data-id="${item.id}">
+                            <img src="../../${item.path}" class="w-full h-24 object-cover rounded-lg">
+                            <button type="button" onclick="removeFromGallery(${item.id}, this)" 
                                 class="absolute top-2 right-2 w-7 h-7 bg-red-600 text-white rounded-full flex items-center justify-center opacity-0 group-hover/gallery:opacity-100 transition-all shadow-xl hover:bg-red-700">
                                 <i class="fas fa-times text-xs"></i>
                             </button>
@@ -503,8 +535,8 @@ $products = $stmt->fetchAll();
                                 <td class="px-6 py-4">
                                     <div class="flex items-center space-x-4">
                                         <div class="w-12 h-12 bg-white/5 rounded-lg overflow-hidden flex items-center justify-center p-2">
-                                            <?php if ($prod['image']): ?>
-                                                <img src="../../<?php echo $prod['image']; ?>" class="w-full h-full object-contain">
+                                            <?php if (!empty($prod['featured_image'])): ?>
+                                                <img src="../../<?php echo h($prod['featured_image']); ?>" class="w-full h-full object-contain">
                                             <?php else: ?>
                                                 <i class="fas fa-cog text-gray-700"></i>
                                             <?php endif; ?>
@@ -516,7 +548,7 @@ $products = $stmt->fetchAll();
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 text-center">
-                                    <a href="?toggle_featured=<?php echo $prod['id']; ?>" class="inline-block transition-all hover:scale-125">
+                                    <a href="<?php echo route('products.toggle', ['id' => $prod['id']]); ?>" class="inline-block transition-all hover:scale-125">
                                         <?php if ($prod['featured']): ?>
                                             <i class="fas fa-star text-orange-500 text-lg drop-shadow-[0_0_8px_rgba(249,115,22,0.4)]"></i>
                                         <?php else: ?>
@@ -536,14 +568,14 @@ $products = $stmt->fetchAll();
                                 </td>
                                 <td class="px-6 py-4 text-right">
                                     <div class="flex items-center justify-end space-x-3">
-                                        <a href="../../product-detail.php?product=<?php echo $prod['slug']; ?>" target="_blank" 
+                                        <a href="<?php echo route('site.product', ['slug' => $prod['slug']]); ?>" target="_blank" 
                                             class="w-8 h-8 bg-blue-600/10 flex items-center justify-center text-blue-500 rounded-lg hover:bg-blue-600 hover:text-white transition-all" title="View on Site">
                                             <i class="fas fa-eye text-xs"></i>
                                         </a>
-                                        <a href="?edit=<?php echo $prod['id']; ?>" class="w-8 h-8 bg-orange-600/10 flex items-center justify-center text-orange-600 rounded-lg hover:bg-orange-600 hover:text-white transition-all">
+                                        <a href="<?php echo route('products.edit', ['id' => $prod['id']]); ?>" class="w-8 h-8 bg-orange-600/10 flex items-center justify-center text-orange-600 rounded-lg hover:bg-orange-600 hover:text-white transition-all">
                                             <i class="fas fa-edit text-xs"></i>
                                         </a>
-                                        <a href="?delete=<?php echo $prod['id']; ?>" onclick="return confirm('Archive this machine?')" class="w-8 h-8 bg-red-600/10 flex items-center justify-center text-red-600 rounded-lg hover:bg-red-600 hover:text-white transition-all">
+                                        <a href="<?php echo route('products.delete', ['id' => $prod['id']]); ?>" onclick="return confirm('Archive this machine?')" class="w-8 h-8 bg-red-600/10 flex items-center justify-center text-red-600 rounded-lg hover:bg-red-600 hover:text-white transition-all">
                                             <i class="fas fa-trash-alt text-xs"></i>
                                         </a>
                                     </div>

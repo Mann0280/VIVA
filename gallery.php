@@ -24,7 +24,7 @@ $categories = array_unique(array_column($imageItems, 'category'));
     </div>
 </section>
 
-<!-- Filter Section -->
+<!-- Filter Section
 <section class="py-12 bg-[#050505] border-y border-gray-900 sticky top-20 z-30 backdrop-blur-md bg-opacity-90">
     <div class="container mx-auto px-4 lg:px-8">
         <div class="flex flex-wrap justify-center gap-4">
@@ -34,7 +34,7 @@ $categories = array_unique(array_column($imageItems, 'category'));
             <?php endforeach; ?>
         </div>
     </div>
-</section>
+</section> -->
 
 <!-- Gallery Grid -->
 <section class="py-12 bg-black">

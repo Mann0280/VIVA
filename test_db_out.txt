@@ -1,0 +1,56 @@
+Array
+(
+    [backup] => Array
+        (
+            [0] => Array
+                (
+                    [id] => 1
+                    [name] => Paper slitting Rewinding machine
+                    [image] => assets/images/categories/slitting-rewinding.jpg
+                    [gallery] => 
+                )
+
+            [1] => Array
+                (
+                    [id] => 2
+                    [name] => Plastic Slitting Rewinding machine
+                    [image] => assets/images/categories/slitting-rewinding.jpg
+                    [gallery] => 
+                )
+
+            [2] => Array
+                (
+                    [id] => 3
+                    [name] => Non-woven Slitting Rewinding machine
+                    [image] => assets/images/categories/slitting-rewinding.jpg
+                    [gallery] => 
+                )
+
+        )
+
+    [current] => Array
+        (
+            [0] => Array
+                (
+                    [id] => 1
+                    [featured_image] => 
+                    [gallery_images] => 
+                )
+
+            [1] => Array
+                (
+                    [id] => 2
+                    [featured_image] => 
+                    [gallery_images] => 
+                )
+
+            [2] => Array
+                (
+                    [id] => 3
+                    [featured_image] => 
+                    [gallery_images] => 
+                )
+
+        )
+
+)
