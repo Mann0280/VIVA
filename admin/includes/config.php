@@ -56,6 +56,9 @@ if (session_status() === PHP_SESSION_NONE) {
 // Admin authentication check
 function check_admin_login() {
     if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
+        // Save attempted URL to redirect back after login
+        $_SESSION['redirect_after_login'] = $_SERVER['REQUEST_URI'];
+        
         header('Location: ' . ADMIN_URL . '/login.php');
         exit();
     }

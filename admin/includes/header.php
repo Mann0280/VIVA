@@ -1,5 +1,9 @@
 <?php
 require_once __DIR__ . '/config.php';
+
+// 🔒 Protect all admin pages
+check_admin_login();
+
 $current_admin_page = basename($_SERVER['PHP_SELF']);
 ?>
 <!DOCTYPE html>

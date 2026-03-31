@@ -10,7 +10,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($username === 'admin' && $password === 'viva123') {
         $_SESSION['admin_logged_in'] = true;
         $_SESSION['admin_name'] = 'Admin';
-        header('Location: ' . route('dashboard'));
+        
+        $redirect = $_SESSION['redirect_after_login'] ?? route('dashboard');
+        unset($_SESSION['redirect_after_login']);
+        
+        header('Location: ' . $redirect);
         exit();
     } else {
         $error = 'Invalid username or password.';
