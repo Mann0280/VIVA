@@ -316,10 +316,10 @@ $services_bg = resolve_url(get_setting('services_bg_path', 'assets/images/servic
                         <?php echo $service['desc']; ?>
                     </p>
                     
-                    <a href="#" class="inline-flex items-center text-orange-600 font-bold uppercase text-sm group-hover:text-white transition-colors duration-300">
+                    <!-- <a href="#" class="inline-flex items-center text-orange-600 font-bold uppercase text-sm group-hover:text-white transition-colors duration-300">
                         Learn More 
                         <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-2 transition-transform duration-300"></i>
-                    </a>
+                    </a> -->
                 </div>
                 
                 <!-- Corner Decoration with animation -->
@@ -374,124 +374,7 @@ $services_bg = resolve_url(get_setting('services_bg_path', 'assets/images/servic
 </section>
 
 
-<!-- Pricing Section -->
-<section class="py-20 bg-gray-900">
-    <div class="container mx-auto px-4 lg:px-8">
-        <div class="pricing-header text-center mb-16 opacity-0 transform translate-y-10">
-            <div class="inline-block mb-6">
-                <span class="text-orange-600 text-sm font-bold uppercase tracking-widest border-l-4 border-orange-600 pl-4 hover:pl-6 transition-all duration-300">Pricing Plans</span>
-            </div>
-            
-            <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
-                FLEXIBLE MACHINERY PRICING
-                <span class="block text-gray-400">FOR PROJECTS</span>
-            </h2>
-        </div>
-        
-        <!-- Pricing Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            <?php
-            $plans = [
-                [
-                    'name' => 'BASIC PLANS',
-                    'price' => '$1999',
-                    'desc' => 'Essential machinery solutions for small repairs and light fabrication projects.',
-                    'features' => [
-                        'Basic Slitting Machine',
-                        'Manual Operation',
-                        '6 Months Warranty',
-                        'Email Support',
-                        'Installation Guide'
-                    ],
-                    'popular' => false
-                ],
-                [
-                    'name' => 'STANDARD PLANS',
-                    'price' => '$3499',
-                    'desc' => 'Comprehensive machinery package for medium-scale manufacturing operations.',
-                    'features' => [
-                        'Advanced Slitting System',
-                        'Semi-Automatic Operation',
-                        '12 Months Warranty',
-                        'Phone & Email Support',
-                        'Free Installation',
-                        'Training Included'
-                    ],
-                    'popular' => true
-                ],
-                [
-                    'name' => 'PREMIUM PLANS',
-                    'price' => '$4999',
-                    'desc' => 'Advanced machinery solutions for large-scale construction projects.',
-                    'features' => [
-                        'Full Automation System',
-                        'Digital Control Panel',
-                        '24 Months Warranty',
-                        '24/7 Priority Support',
-                        'Free Installation & Training',
-                        'Lifetime Maintenance',
-                        'Custom Configuration'
-                    ],
-                    'popular' => false
-                ]
-            ];
-            
-            foreach ($plans as $index => $plan):
-            ?>
-            <div class="pricing-card group relative bg-black border-2 <?php echo $plan['popular'] ? 'border-orange-600 shadow-2xl shadow-orange-600/20 scale-105' : 'border-gray-800'; ?> p-8 hover:shadow-2xl transition-all duration-700 cursor-pointer opacity-0 transform translate-y-10 hover:-translate-y-4 hover:border-orange-600" 
-                 data-delay="<?php echo $index * 150; ?>">
-                
-                <?php if ($plan['popular']): ?>
-                <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-orange-600 to-orange-700 text-white px-6 py-2 rounded-full text-sm font-bold uppercase shadow-lg animate-pulse">
-                    Most Popular
-                </div>
-                <?php endif; ?>
-                
-                <!-- Animated background gradient -->
-                <div class="absolute inset-0 bg-gradient-to-br from-orange-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-                
-                <div class="mb-8 relative z-10">
-                    <h3 class="text-lg font-bold <?php echo $plan['popular'] ? 'text-orange-400' : 'text-gray-400'; ?> uppercase tracking-wider mb-4 group-hover:text-orange-400 transition-colors duration-300">
-                        <?php echo $plan['name']; ?>
-                    </h3>
-                    <div class="flex items-baseline mb-4">
-                        <span class="text-5xl font-bold text-white group-hover:text-orange-400 transition-colors duration-300"><?php echo $plan['price']; ?></span>
-                        <span class="text-gray-400 ml-2">/ Month</span>
-                    </div>
-                    <p class="text-gray-400 text-sm leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
-                        <?php echo $plan['desc']; ?>
-                    </p>
-                </div>
-                
-                <div class="space-y-4 mb-10 relative z-10">
-                    <?php foreach ($plan['features'] as $idx => $feature): ?>
-                    <div class="flex items-start opacity-0 feature-list-item" style="animation-delay: <?php echo $idx * 100; ?>ms">
-                        <div class="flex-shrink-0 w-6 h-6 <?php echo $plan['popular'] ? 'bg-orange-600' : 'bg-gray-800'; ?> group-hover:bg-orange-600 rounded-full flex items-center justify-center mr-3 mt-0.5 transform group-hover:scale-125 transition-all duration-500">
-                            <i class="fas fa-check text-xs text-white"></i>
-                        </div>
-                        <span class="text-gray-300 group-hover:text-white transition-colors duration-300"><?php echo $feature; ?></span>
-                    </div>
-                    <?php endforeach; ?>
-                </div>
-                
-                <a href="contact.php" class="block w-full text-center py-4 <?php echo $plan['popular'] ? 'bg-gradient-to-r from-orange-600 to-orange-700 text-white hover:from-orange-700 hover:to-orange-800' : 'border-2 border-orange-600 text-orange-600 hover:bg-orange-600 hover:text-white'; ?> font-bold uppercase tracking-wider transition-all duration-500 rounded-lg relative z-10 group/btn overflow-hidden transform hover:scale-105 hover:shadow-xl hover:shadow-orange-600/50">
-                    <span class="flex items-center justify-center relative z-10">
-                        Choose Plan 
-                        <i class="fas fa-arrow-right ml-3 transform group-hover/btn:translate-x-3 transition-transform duration-300"></i>
-                    </span>
-                </a>
-                
-                <!-- Corner decorations -->
-                <div class="absolute top-4 right-4 w-8 h-8 border-t-2 border-r-2 border-orange-600 opacity-0 group-hover:opacity-100 transition-all duration-500 transform scale-0 group-hover:scale-100"></div>
-                <div class="absolute bottom-4 left-4 w-8 h-8 border-b-2 border-l-2 border-orange-600 opacity-0 group-hover:opacity-100 transition-all duration-500 transform scale-0 group-hover:scale-100"></div>
-                
-                <!-- Glow effect -->
-                <div class="absolute -inset-2 bg-gradient-to-r from-orange-600 to-orange-800 opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-700"></div>
-            </div>
-            <?php endforeach; ?>
-        </div>
-    </div>
-</section>
+
 
 <!-- Testimonials Section -->
 <section class="py-20 bg-black">

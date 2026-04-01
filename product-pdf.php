@@ -24,7 +24,28 @@ if (!$product) {
 
 $specifications = parseSpecs($product['specifications'] ?? '');
 $features = parseField($product['features'] ?? '');
-$main_image = !empty($product['image']) ? $product['image'] : 'v.jpeg';
+
+$featured_img = !empty($product['featured_image']) ? $product['featured_image'] : (!empty($product['image']) ? $product['image'] : 'v.jpeg');
+
+$gallery_paths = [];
+if (!empty($product['gallery_images'])) {
+    $decoded = json_decode($product['gallery_images'], true);
+    if (is_array($decoded)) {
+        foreach ($decoded as $item) {
+            if (isset($item['path'])) $gallery_paths[] = $item['path'];
+        }
+    }
+} elseif (!empty($product['gallery'])) {
+    $gallery_paths = explode(',', $product['gallery']);
+}
+
+$gallery = array_merge(
+    [$featured_img],
+    $gallery_paths
+);
+$gallery = array_unique(array_filter($gallery));
+
+$main_image = !empty($gallery[0]) ? $gallery[0] : 'v.jpeg';
 ?>
 <!DOCTYPE html>
 <html lang="en">

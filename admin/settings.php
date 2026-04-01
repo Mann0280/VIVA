@@ -59,7 +59,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save_settings'])) {
         'meta_pixel_id' => h($_POST['meta_pixel_id'] ?? ''),
         // Ops
         'maintenance_mode' => $maintenance_mode,
-        'currency_code' => h($_POST['currency_code'] ?? 'USD'),
         'footer_logo_path' => $footer_logo_path,
         'preloader_logo_path' => $preloader_logo_path,
     ];
@@ -228,17 +227,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save_settings'])) {
                         <input type="text" name="working_hours" value="<?php echo get_setting('working_hours'); ?>" 
                             class="w-full bg-black border border-gray-800 rounded-xl py-3 px-4 text-white focus:outline-none focus:border-orange-600 transition-all">
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Currency Code</label>
-                            <input type="text" name="currency_code" value="<?php echo get_setting('currency_code'); ?>" 
-                                class="w-full bg-black border border-gray-800 rounded-xl py-3 px-4 text-white focus:outline-none focus:border-orange-600 transition-all" placeholder="USD / INR">
-                        </div>
-                        <div class="flex items-center space-x-3">
-                            <input type="checkbox" name="maintenance_mode" value="1" <?php echo get_setting('maintenance_mode') === '1' ? 'checked' : ''; ?> 
-                                class="w-5 h-5 text-orange-600 bg-black border-gray-700 rounded focus:ring-orange-600">
-                            <label class="text-sm text-gray-300">Enable maintenance mode (show a basic notice to visitors)</label>
-                        </div>
+                    <div class="flex items-center space-x-3 pt-4">
+                        <input type="checkbox" name="maintenance_mode" value="1" <?php echo get_setting('maintenance_mode') === '1' ? 'checked' : ''; ?> 
+                            class="w-5 h-5 text-orange-600 bg-black border-gray-700 rounded focus:ring-orange-600">
+                        <label class="text-sm text-gray-300">Enable maintenance mode (show a basic notice to visitors)</label>
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Google Maps Embed (iframe src)</label>

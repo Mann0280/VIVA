@@ -1,4 +1,10 @@
-<?php include 'includes/header.php'; ?>
+<?php 
+include 'includes/header.php'; 
+
+// Fetch Settings
+$hero_bg = resolve_url(get_setting('hero_bg_path', 'assets/images/categories/slitting-rewinding.jpg'));
+$about_img = resolve_url(get_setting('about_image_path', 'assets/images/products/plastic-slitting-machine/plastic-slitting-machine-1.png'));
+?>
 
 <!-- External Libraries for About Page -->
 <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.8.0/dist/vanilla-tilt.min.js"></script>
@@ -8,7 +14,7 @@
 <!-- Hero Section -->
 <section class="relative min-h-[60vh] flex items-center bg-black overflow-hidden pt-24">
     <div class="absolute inset-0 parallax" data-speed="0.3">
-        <img src="assets/images/categories/slitting-rewinding.jpg" 
+        <img src="<?php echo h($hero_bg); ?>" 
              alt="VIVA Engineering Machinery"
              class="w-full h-full object-cover opacity-30">
         <div class="absolute inset-0 bg-gradient-to-r from-black via-black/90 to-transparent"></div>
@@ -54,7 +60,7 @@
             <!-- Image Showcase -->
             <div class="relative" data-aos="fade-right">
                 <div class="relative rounded-2xl overflow-hidden group">
-                    <img src="assets/images/products/plastic-slitting-machine/plastic-slitting-machine-1.png" 
+                    <img src="<?php echo h($about_img); ?>" 
                          alt="VIVA Precision Engineering"
                          class="w-full h-[500px] object-cover transform group-hover:scale-110 transition-transform duration-700">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
@@ -199,17 +205,35 @@
             
             <!-- Interactive Map Wrapper -->
             <div class="globe-container relative h-[500px]" data-aos="zoom-in">
-                <div id="world-map" class="w-full h-full bg-gray-900/50 rounded-3xl border border-orange-600/30 overflow-hidden relative">
-                    <!-- SVG Lines -->
-                    <svg id="connection-lines" class="absolute inset-0 w-full h-full z-10"></svg>
-                    <!-- Points -->
-                    <div class="location-points absolute inset-0 z-20"></div>
-                    
-                    <!-- Map Visual Placeholder (Center) -->
-                    <div class="absolute inset-0 flex items-center justify-center opacity-20">
-                        <i class="fas fa-globe-americas text-[300px] text-orange-600 animate-gear-rotate"></i>
+                <?php 
+                $map_src = get_setting('map_embed');
+                if ($map_src): 
+                ?>
+                    <div class="w-full h-full rounded-3xl border border-orange-600/30 overflow-hidden shadow-2xl shadow-orange-600/10 group">
+                        <iframe 
+                            src="<?php echo $map_src; ?>" 
+                            width="100%" 
+                            height="100%" 
+                            style="border:0; filter: grayscale(1) invert(1) contrast(1.2) opacity(0.8); transition: all 0.5s ease;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            class="group-hover:opacity-100 group-hover:filter-none"
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
                     </div>
-                </div>
+                <?php else: ?>
+                    <div id="world-map" class="w-full h-full bg-gray-900/50 rounded-3xl border border-orange-600/30 overflow-hidden relative">
+                        <!-- SVG Lines -->
+                        <svg id="connection-lines" class="absolute inset-0 w-full h-full z-10"></svg>
+                        <!-- Points -->
+                        <div class="location-points absolute inset-0 z-20"></div>
+                        
+                        <!-- Map Visual Placeholder (Center) -->
+                        <div class="absolute inset-0 flex items-center justify-center opacity-20">
+                            <i class="fas fa-globe-americas text-[300px] text-orange-600 animate-gear-rotate"></i>
+                        </div>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>

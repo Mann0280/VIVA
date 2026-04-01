@@ -250,9 +250,12 @@ $products = $stmt->fetchAll();
                                 class="w-full bg-white/5 border border-gray-800 rounded-xl py-3 px-4 text-white text-sm focus:border-orange-600 transition-all">
                         </div>
                         <div class="space-y-2">
-                            <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Price Info</label>
-                            <input type="text" name="price" value="<?php echo $edit_prod['price'] ?? 'Contact for Price'; ?>" 
-                                class="w-full bg-white/5 border border-gray-800 rounded-xl py-3 px-4 text-white text-sm focus:border-orange-600 transition-all">
+                            <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Price Info (<?php echo get_setting('currency_code', 'USD'); ?>)</label>
+                            <div class="relative group">
+                                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-orange-600 font-bold text-xs pointer-events-none opacity-50 group-focus-within:opacity-100 transition-opacity uppercase"><?php echo get_setting('currency_code', 'USD'); ?></span>
+                                <input type="text" name="price" value="<?php echo $edit_prod['price'] ?? 'Contact for Price'; ?>" 
+                                    class="w-full bg-white/5 border border-gray-800 rounded-xl py-3 pl-12 pr-4 text-white text-sm focus:border-orange-600 transition-all">
+                            </div>
                         </div>
                         <div class="space-y-2">
                             <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Availability</label>

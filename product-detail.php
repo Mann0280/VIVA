@@ -97,17 +97,23 @@ include 'includes/header.php';
                     <p class="text-xl text-gray-400 italic"><?php echo h($product['tagline'] ?? 'Engineering Excellence'); ?></p>
                 </div>
 
-                <div class="grid grid-cols-2 gap-6 pb-8 border-b border-gray-900">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 pb-8 border-b border-gray-900">
+                    <div>
+                        <span class="block text-gray-500 text-xs uppercase font-bold mb-1">Standard Price</span>
+                        <span class="text-2xl font-bold text-white">
+                            <?php echo format_price($product['price'] ?? ''); ?>
+                        </span>
+                    </div>
                     <div>
                         <span class="block text-gray-500 text-xs uppercase font-bold mb-1">Availability</span>
                         <span class="text-green-500 font-bold flex items-center">
                             <span class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-ping"></span>
-                            In Stock
+                            <?php echo h($product['availability'] ?? 'In Stock'); ?>
                         </span>
                     </div>
                     <div>
                         <span class="block text-gray-500 text-xs uppercase font-bold mb-1">Lead Time</span>
-                        <span class="text-white font-bold"><i class="fas fa-clock text-orange-600 mr-2"></i> 4-6 Weeks</span>
+                        <span class="text-white font-bold"><i class="fas fa-clock text-orange-600 mr-2"></i> <?php echo h($product['lead_time'] ?? '4-6 Weeks'); ?></span>
                     </div>
                 </div>
 

@@ -207,4 +207,29 @@ function resolve_url($path) {
         return '/' . ltrim($clean_path, '/');
     }
 }
+
+/**
+ * Global price formatter
+ * Prepends/Appends currency code based on settings
+ */
+function format_price($price) {
+    if (empty($price)) return 'Contact for Quote';
+    
+    // If it's already got a symbol or isn't numeric, return as is
+    if (!is_numeric(str_replace(',', '', $price))) {
+        return $price;
+    }
+    
+    $currency = get_setting('currency_code', 'USD');
+    $formatted_num = number_format((float)str_replace(',', '', $price));
+    
+    // Aesthetic check: If currency is a symbol ($ or ₹), prepend it without space
+    // Otherwise, prepend with space (USD 1,000)
+    $symbols = ['$', '₹', '€', '£', '¥'];
+    if (in_array($currency, $symbols)) {
+        return $currency . $formatted_num;
+    }
+    
+    return $currency . ' ' . $formatted_num;
+}
 ?>
