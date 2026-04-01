@@ -61,6 +61,9 @@ $new_count_stmt = $pdo->query("SELECT COUNT(*) FROM contact_requests WHERE statu
 $new_count = $new_count_stmt->fetchColumn();
 ?>
 
+<!-- GSAP for Animations -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
 <div class="space-y-8">
     <div class="flex items-center justify-between">
         <div>
@@ -261,6 +264,9 @@ $new_count = $new_count_stmt->fetchColumn();
         <!-- Modal Footer (Fixed) -->
         <div class="p-6 md:p-8 bg-black/40 border-t border-gray-800/50 flex flex-col md:flex-row justify-end gap-4 flex-shrink-0">
             <button onclick="closeMessageModal()" class="px-8 py-4 rounded-xl text-gray-500 font-bold hover:text-white hover:bg-gray-800 transition-all uppercase tracking-widest text-[10px] md:text-[11px]">Dismiss</button>
+            <a id="modal-reply" href="" class="px-10 py-4 bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-xl transition-all uppercase tracking-widest text-[10px] md:text-[11px] shadow-lg shadow-orange-600/20 text-center">
+                Reply via Email <i class="fas fa-paper-plane ml-2"></i>
+            </a>
         </div>
     </div>
 </div>
