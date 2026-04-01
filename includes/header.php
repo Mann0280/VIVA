@@ -109,9 +109,27 @@ $current_page = basename($_SERVER['PHP_SELF']);
 <body class="bg-black text-white font-body">
 
     <!-- Loading Screen -->
-    <div id="loading-screen">
-        <div class="loading-ring"></div>
-        <p class="text-gradient-orange font-heading font-bold animate-pulse">VIVA ENGINEERING</p>
+    <div id="loading-screen" class="fixed inset-0 bg-black z-[9999] flex flex-col items-center justify-center transition-all duration-700">
+        <div class="relative mb-8">
+            <!-- Animated rings -->
+            <div class="absolute inset-0 w-32 h-32 border-2 border-orange-600/30 rounded-full animate-ping"></div>
+            <div class="absolute inset-0 w-32 h-32 border-2 border-orange-600/20 rounded-full animate-pulse delay-700"></div>
+            
+            <!-- Logo Container -->
+            <div class="relative w-32 h-32 bg-white rounded-2xl flex items-center justify-center shadow-2xl shadow-orange-600/20 overflow-hidden p-4 group">
+                <img src="<?php echo resolve_url(get_setting('preloader_logo_path') ?: get_setting('logo_path')); ?>" alt="VIVA" class="w-full h-full object-contain animate-float">
+                
+                <!-- Inner glow -->
+                <div class="absolute inset-0 bg-gradient-to-tr from-orange-600/10 to-transparent"></div>
+            </div>
+        </div>
+        
+        <div class="flex flex-col items-center">
+            <h2 class="text-gradient-orange font-heading font-bold text-2xl tracking-[0.2em] mb-3 animate-pulse uppercase"><?php echo get_setting('site_name'); ?></h2>
+            <div class="w-48 h-1 bg-gray-900 rounded-full overflow-hidden">
+                <div class="h-full bg-orange-600 w-full origin-left animate-shimmer"></div>
+            </div>
+        </div>
     </div>
     
     <!-- Navigation -->

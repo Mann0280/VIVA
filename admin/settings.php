@@ -12,6 +12,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save_settings'])) {
     $hero_bg_path = $_POST['hero_bg_path'] ?? get_setting('hero_bg_path', '');
     $about_image_path = $_POST['about_image_path'] ?? get_setting('about_image_path', '');
     $services_bg_path = $_POST['services_bg_path'] ?? get_setting('services_bg_path', '');
+    $footer_logo_path = $_POST['footer_logo_path'] ?? get_setting('footer_logo_path', '');
+    $preloader_logo_path = $_POST['preloader_logo_path'] ?? get_setting('preloader_logo_path', '');
 
     // Toggle style settings
     $primary_color = !empty($_POST['primary_color']) ? h($_POST['primary_color']) : '#FF5722';
@@ -58,6 +60,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save_settings'])) {
         // Ops
         'maintenance_mode' => $maintenance_mode,
         'currency_code' => h($_POST['currency_code'] ?? 'USD'),
+        'footer_logo_path' => $footer_logo_path,
+        'preloader_logo_path' => $preloader_logo_path,
     ];
 
     // Generate the PHP file content
@@ -358,6 +362,48 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save_settings'])) {
                         </div>
                     </div>
 
+                    <div class="mt-8 w-full border-t border-gray-800 pt-6">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center text-orange-500">
+                                <i class="fas fa-shoe-prints text-sm"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-semibold text-white">Footer Logo</p>
+                                <p class="text-xs text-gray-500">Select logo for the footer section</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <input type="hidden" name="footer_logo_path" id="footer_logo_path_input" value="<?php echo get_setting('footer_logo_path'); ?>">
+                            <div class="w-24 h-12 bg-white/10 border border-gray-800 rounded-md overflow-hidden flex items-center justify-center cursor-pointer" onclick="openSettingsMediaPicker('footer')">
+                                <img src="<?php echo resolve_url(get_setting('footer_logo_path')); ?>" id="footer_preview" alt="Footer Logo" class="w-full h-full object-contain p-2">
+                            </div>
+                            <button type="button" onclick="openSettingsMediaPicker('footer')" class="bg-gray-800 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-lg transition-all">
+                                Select Footer Logo
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 w-full border-t border-gray-800 pt-6">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center text-orange-500">
+                                <i class="fas fa-spinner text-sm"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-semibold text-white">Pre-loader Logo</p>
+                                <p class="text-xs text-gray-500">Select logo for the site loading screen</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <input type="hidden" name="preloader_logo_path" id="preloader_logo_path_input" value="<?php echo get_setting('preloader_logo_path'); ?>">
+                            <div class="w-24 h-12 bg-white/10 border border-gray-800 rounded-md overflow-hidden flex items-center justify-center cursor-pointer" onclick="openSettingsMediaPicker('preloader')">
+                                <img src="<?php echo resolve_url(get_setting('preloader_logo_path')); ?>" id="preloader_preview" alt="Pre-loader Logo" class="w-full h-full object-contain p-2">
+                            </div>
+                            <button type="button" onclick="openSettingsMediaPicker('preloader')" class="bg-gray-800 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-lg transition-all">
+                                Select Pre-loader Logo
+                            </button>
+                        </div>
+                    </div>
+
                     <script>
                     function openSettingsMediaPicker(type) {
                         if (typeof window.openMediaManager !== 'function') {
@@ -390,6 +436,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save_settings'])) {
                             } else if (type === 'services') {
                                 document.getElementById('services_bg_path_input').value = finalPath;
                                 document.getElementById('services_preview').src = previewUrl;
+                            } else if (type === 'footer') {
+                                document.getElementById('footer_logo_path_input').value = finalPath;
+                                document.getElementById('footer_preview').src = previewUrl;
+                            } else if (type === 'preloader') {
+                                document.getElementById('preloader_logo_path_input').value = finalPath;
+                                document.getElementById('preloader_preview').src = previewUrl;
                             }
                         });
                     }

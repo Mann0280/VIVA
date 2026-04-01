@@ -10,7 +10,7 @@
                         <div class="w-12 h-12 bg-gradient-to-br from-black-600 to-black-700 rounded-lg flex items-center justify-center transition-transform duration-700">
                             <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
                                 <!-- Using settings logo -->
-                                <img src="<?php echo get_setting('logo_path'); ?>" alt="<?php echo get_setting('site_name'); ?> Logo" class="w-8 h-8 object-contain">
+                                <img src="<?php echo resolve_url(get_setting('footer_logo_path') ?: get_setting('logo_path')); ?>" alt="<?php echo get_setting('site_name'); ?> Logo" class="w-8 h-8 object-contain">
                             </div>
                         </div>
                         <div>

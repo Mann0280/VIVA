@@ -32,13 +32,15 @@ $site_settings = [
     'contact_cta_url' => '/contact.php#form',
     'map_embed' => '',
     'brochure_url' => '/assets/brochure.pdf',
-    'hero_bg_path' => '/VIVA/uploads/media/media-viva-69cb81334514a.webp',
+    'hero_bg_path' => 'https://www.ssab.com/-/media/images/technical-support/how-to-weld/how-to-weld-menu-2-1920x570px-240815v1.gif?m=20240815105849',
     'about_image_path' => '/VIVA/uploads/media/media-viva-69cb734cac3a8.webp',
     'services_bg_path' => '/VIVA/uploads/media/media-viva-69cb75463beed.webp',
     'ga_measurement_id' => '',
     'meta_pixel_id' => '',
     'maintenance_mode' => '0',
     'currency_code' => 'USD',
+    'footer_logo_path' => '/assets/images/products/whatsapp-image-2026-01-02-at-14.40.27.jpeg',
+    'preloader_logo_path' => '/uploads/media/viva_import_1774265611_69c1250b611ac.jpeg',
 ];
 
 /**
@@ -51,3 +53,4 @@ if (!function_exists('get_setting')) {
     }
 }
 ?>
+
